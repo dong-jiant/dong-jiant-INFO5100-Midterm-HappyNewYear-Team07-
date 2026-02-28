@@ -7,14 +7,16 @@ package Business.Person;
 
 /**
  *
- * @author kal bugrara
+ * @author 
  */
 public class Person {
 
-    String id;
+    private String id;
+    private String name;
+    private String email;
+    private String department;
 
     public Person(String id) {
-
         this.id = id;
     }
 
@@ -22,12 +24,39 @@ public class Person {
         return id;
     }
 
-    public boolean isMatch(String id) {
-        if (getPersonId().equals(id)) {
-            return true;
-        }
-        return false;
+    public void setPersonId(String id) {
+        this.id = id;
     }
+
+    // --- new fields ---
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public boolean isMatch(String id) {
+        return getPersonId().equals(id);
+    }
+
 
     @Override
     public String toString() {
