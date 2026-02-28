@@ -6,7 +6,10 @@
 package UserInterface.WorkAreas.AdminRole.ManagePersonnelWorkResp;
 
 import Business.Business;
-
+import Business.Person.Person;
+import Business.Profiles.EmployeeProfile;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -18,17 +21,22 @@ public class AdministerPersonJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageSuppliersJPanel
      */
-    JPanel CardSequencePanel;
+   private JPanel CardSequencePanel;
+private Business business;
+private Person person;
+private ManagePersonsJPanel managePanel;
 
-    Business business;
+    
 
-    public AdministerPersonJPanel(Business bz, JPanel jp) {
+    public AdministerPersonJPanel(Business business, JPanel CardSequencePanel, Person p, ManagePersonsJPanel mp) {
+    initComponents();
+    this.business = business;
+    this.CardSequencePanel = CardSequencePanel;
+    this.person = p;
+    this.managePanel = mp;
 
-        CardSequencePanel = jp;
-        this.business = bz;
-        initComponents();
-
-
+    populateFields();
+    setViewMode();
     }
 
     public void refreshTable() {
@@ -46,6 +54,21 @@ public class AdministerPersonJPanel extends javax.swing.JPanel {
 
         Back = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        lblNUID = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        txtNUID = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
+        lblEmail = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        lblDepartment = new javax.swing.JLabel();
+        txtDepartment = new javax.swing.JTextField();
+        lblTitle = new javax.swing.JLabel();
+        txtTitle = new javax.swing.JTextField();
+        lblPhone = new javax.swing.JLabel();
+        txtPhone = new javax.swing.JTextField();
+        lblSalary = new javax.swing.JLabel();
+        txtSalary = new javax.swing.JTextField();
+        btnSave = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 153, 153));
         setLayout(null);
@@ -57,26 +80,220 @@ public class AdministerPersonJPanel extends javax.swing.JPanel {
             }
         });
         add(Back);
-        Back.setBounds(30, 290, 76, 32);
+        Back.setBounds(30, 420, 80, 23);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel2.setText("Manage Person Profile");
         add(jLabel2);
-        jLabel2.setBounds(21, 20, 550, 29);
+        jLabel2.setBounds(21, 20, 550, 28);
+
+        lblNUID.setText("NUID");
+        add(lblNUID);
+        lblNUID.setBounds(190, 80, 30, 17);
+
+        lblName.setText("Name");
+        add(lblName);
+        lblName.setBounds(190, 120, 34, 17);
+        add(txtNUID);
+        txtNUID.setBounds(250, 80, 160, 23);
+        add(txtName);
+        txtName.setBounds(250, 120, 160, 23);
+
+        lblEmail.setText("Email");
+        add(lblEmail);
+        lblEmail.setBounds(190, 160, 32, 17);
+        add(txtEmail);
+        txtEmail.setBounds(250, 160, 170, 23);
+
+        lblDepartment.setText("Department");
+        add(lblDepartment);
+        lblDepartment.setBounds(160, 200, 80, 17);
+        add(txtDepartment);
+        txtDepartment.setBounds(250, 200, 160, 23);
+
+        lblTitle.setText("Title");
+        add(lblTitle);
+        lblTitle.setBounds(200, 240, 24, 20);
+
+        txtTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTitleActionPerformed(evt);
+            }
+        });
+        add(txtTitle);
+        txtTitle.setBounds(250, 240, 160, 23);
+
+        lblPhone.setText("Phone");
+        add(lblPhone);
+        lblPhone.setBounds(190, 280, 36, 17);
+
+        txtPhone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPhoneActionPerformed(evt);
+            }
+        });
+        add(txtPhone);
+        txtPhone.setBounds(250, 280, 160, 23);
+
+        lblSalary.setText("Salary");
+        add(lblSalary);
+        lblSalary.setBounds(180, 320, 36, 17);
+        add(txtSalary);
+        txtSalary.setBounds(250, 320, 160, 23);
+
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+        add(btnSave);
+        btnSave.setBounds(250, 410, 72, 23);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         // TODO add your handling code here:
-        CardSequencePanel.remove(this);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+       CardSequencePanel.remove(this);
+    ((CardLayout) CardSequencePanel.getLayout()).previous(CardSequencePanel);
 
 
     }//GEN-LAST:event_BackActionPerformed
 
+    private void txtTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTitleActionPerformed
+
+    private void txtPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPhoneActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+   String nuid = txtNUID.getText().trim();
+    String name = txtName.getText().trim();
+    String email = txtEmail.getText().trim();
+    String dept = txtDepartment.getText().trim();
+
+    String title = txtTitle.getText().trim();
+    String phone = txtPhone.getText().trim();
+    String salaryStr = txtSalary.getText().trim();
+
+    // 1
+    if (nuid.isEmpty() || name.isEmpty() || email.isEmpty() || dept.isEmpty()
+            || title.isEmpty() || phone.isEmpty() || salaryStr.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+                "Please fill all fields.",
+                "Warning",
+                JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    double salary;
+    try {
+        salary = Double.parseDouble(salaryStr);
+        if (salary < 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Salary must be non-negative.",
+                    "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this,
+                "Salary must be a valid number.",
+                "Warning",
+                JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    // 2
+    if (person == null) {
+        JOptionPane.showMessageDialog(this,
+                "Person not found.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    person.setName(name);
+    person.setEmail(email);
+    person.setDepartment(dept);
+
+    // 3
+    EmployeeProfile ep = business.getEmployeeDirectory().findEmployee(person.getPersonId());
+    if (ep == null) {
+        ep = business.getEmployeeDirectory().newEmployeeProfile(person);
+    }
+
+    ep.setTitle(title);
+    ep.setPhone(phone);
+    ep.setSalary(salary);
+
+    JOptionPane.showMessageDialog(this,
+            "Employee registered successfully.",
+            "Info",
+            JOptionPane.INFORMATION_MESSAGE);
+
+
+    txtTitle.setText("");
+    txtPhone.setText("");
+    txtSalary.setText("");
+
+
+
+
+
+    }//GEN-LAST:event_btnSaveActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblDepartment;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblNUID;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPhone;
+    private javax.swing.JLabel lblSalary;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JTextField txtDepartment;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtNUID;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPhone;
+    private javax.swing.JTextField txtSalary;
+    private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
+
+    private void populateFields() {
+ if (person == null) return;
+
+    txtNUID.setText(person.getPersonId() == null ? "" : person.getPersonId());
+    txtName.setText(person.getName() == null ? "" : person.getName());
+    txtEmail.setText(person.getEmail() == null ? "" : person.getEmail());
+    txtDepartment.setText(person.getDepartment() == null ? "" : person.getDepartment());
+
+    txtTitle.setText("");
+    txtPhone.setText("");
+    txtSalary.setText("");
+
+  
+    EmployeeProfile ep = business.getEmployeeDirectory().findEmployee(person.getPersonId());
+    if (ep != null) {
+        txtTitle.setText(ep.getTitle() == null ? "" : ep.getTitle());
+        txtPhone.setText(ep.getPhone() == null ? "" : ep.getPhone());
+        txtSalary.setText(String.valueOf(ep.getSalary()));
+    } else {
+        txtTitle.setText("");
+        txtPhone.setText("");
+        txtSalary.setText("");
+    }
+}
+
+private void setViewMode() {
+    txtNUID.setEnabled(false);     }
+
+
+
 
 }

@@ -20,28 +20,33 @@ public class EmployeeDirectory {
     ArrayList<EmployeeProfile> employeelist;
 
     public EmployeeDirectory(Business d) {
-
         business = d;
         employeelist = new ArrayList();
-
     }
 
     public EmployeeProfile newEmployeeProfile(Person p) {
-
-        EmployeeProfile sp = new EmployeeProfile(p);
-        employeelist.add(sp);
-        return sp;
+        EmployeeProfile ep = new EmployeeProfile(p);
+        employeelist.add(ep);
+        return ep;
     }
 
     public EmployeeProfile findEmployee(String id) {
-
-        for (EmployeeProfile sp : employeelist) {
-
-            if (sp.isMatch(id)) {
-                return sp;
+        for (EmployeeProfile ep : employeelist) {
+            if (ep.isMatch(id)) {
+                return ep;
             }
         }
-            return null; //not found after going through the whole list
-         }
-    
+        return null; // not found
+    }
+
+    public void removeEmployeeProfile(EmployeeProfile ep) {
+        employeelist.remove(ep);
+    }
+
+    public ArrayList<EmployeeProfile> getEmployeeList() {
+        return employeelist;
+    }
 }
+    
+    
+
