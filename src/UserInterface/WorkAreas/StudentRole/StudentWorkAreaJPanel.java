@@ -10,8 +10,16 @@
  */
 package UserInterface.WorkAreas.StudentRole;
 
+
+import Business.Academic.Enrollment;
 import Business.Business;
+import Business.Person.Person;
 import Business.Profiles.StudentProfile;
+import Business.UserAccounts.UserAccount;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -23,6 +31,7 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
     javax.swing.JPanel CardSequencePanel;
     Business business;
     StudentProfile student;
+    private UserAccount studentAccount;
 
     /**
      * Creates new form UnitRiskWorkArea
@@ -32,10 +41,14 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
      */
 
     public StudentWorkAreaJPanel(Business b, StudentProfile spp, JPanel clp) {
+        this(b, spp, clp, null);
+    }
 
+    public StudentWorkAreaJPanel(Business b, StudentProfile spp, JPanel clp, UserAccount account) {
         business = b;
         this.CardSequencePanel = clp;
         student = spp;
+        studentAccount = account;
         initComponents();
 
     }
@@ -170,32 +183,190 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4IdentifyResourceAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4IdentifyResourceAssetsActionPerformed
-        
+        String studentId = getStudentId();
+if (studentId == null) {
+    JOptionPane.showMessageDialog(this,
+            "Student session is invalid.",
+            "Error",
+            JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+String courseId = promptRequired("Enter course ID for assignment submission:");
+if (courseId == null) {
+    return;
+}
+
+String assignmentName = promptRequired("Enter assignment name:");
+if (assignmentName == null) {
+    return;
+}
+
+
+boolean saved = business.getEnrollmentDirectory().submitAssignment(studentId, courseId, assignmentName);
+
+if (!saved) {
+    JOptionPane.showMessageDialog(this,"Submission failed. Enroll in the course before submitting coursework.","Validation Error",JOptionPane.WARNING_MESSAGE);
+    return;
+}
+
+
+    ArrayList<String> submissions = business.getEnrollmentDirectory()
+        .getSubmittedAssignments(studentId);
+
+        StringBuilder sb = new StringBuilder("Submission accepted.\n\nCurrent submissions:\n");
+    for (String line : submissions) {
+    sb.append(" - ").append(line).append("\n");
+}
+
+JOptionPane.showMessageDialog(this,sb.toString(),"Coursework",JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_jButton4IdentifyResourceAssetsActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        if (student == null || student.getPerson() == null) {
+            JOptionPane.showMessageDialog(this, "Student profile missing.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Person p = student.getPerson();
+        String summary = "Name: " + safe(p.getName()) + "\nEmail: " + safe(p.getEmail()) + "\nDepartment: "
+                + safe(p.getDepartment()) + "\nHobbies: " + safe(student.getHobbies()) + "\nInterests: "
+                + safe(student.getInterests()) + "\nAcademic Progress: " + safe(student.getAcademicProgress());
+        JOptionPane.showMessageDialog(this, summary, "Manage Profile", JOptionPane.INFORMATION_MESSAGE);
 
+        String newHobbies = JOptionPane.showInputDialog(this, "Update hobbies:", safe(student.getHobbies()));
+        if (newHobbies == null) {
+            return;
+        }
+        String newInterests = JOptionPane.showInputDialog(this, "Update interests:", safe(student.getInterests()));
+        if (newInterests == null) {
+            return;
+        }
+        String newProgress = JOptionPane.showInputDialog(this, "Update academic progress:",
+                safe(student.getAcademicProgress()));
+        if (newProgress == null || newProgress.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Academic progress cannot be empty.", "Validation Error",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        student.setHobbies(newHobbies.trim());
+        student.setInterests(newInterests.trim());
+        student.setAcademicProgress(newProgress.trim());
+        if (studentAccount != null) {
+            studentAccount.touchLastUpdated();
+        }
+        JOptionPane.showMessageDialog(this, "Student profile updated.", "Success", JOptionPane.INFORMATION_MESSAGE);
 
 
 }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        String studentId = getStudentId();
+        if (studentId == null) {
+            JOptionPane.showMessageDialog(this, "Student session invalid.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+         int completed = business.getEnrollmentDirectory().completedCredits(studentId);
+        int graduationRequiredCredits = 30;
+        int pending = Math.max(0, graduationRequiredCredits - completed);
+        String status = pending == 0 ? "Eligible for graduation" : "Credits pending: " + pending;
+        JOptionPane.showMessageDialog(this,
+                "Graduation Audit\nCompleted Credits: " + completed + "\nRequired Credits: "
+                        + graduationRequiredCredits + "\nStatus: " + status,
+                "Graduation Audit", JOptionPane.INFORMATION_MESSAGE);
 
 
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+        String studentId = getStudentId();
+        if (studentId == null) {
+            JOptionPane.showMessageDialog(this, "Student session invalid.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String action = JOptionPane.showInputDialog(this,
+                "Type action: ENROLL or DROP");
+        if (action == null || action.trim().isEmpty()) {
+            return;
+        }
 
-        CardSequencePanel.removeAll();
+        if ("ENROLL".equalsIgnoreCase(action.trim())) {
+            String courseId = promptRequired("Enter course ID:");
+            if (courseId == null) {
+                return;
+            }
+            String courseName = promptRequired("Enter course name:");
+            if (courseName == null) {
+                return;
+            }
+            String creditsText = promptRequired("Enter credits:");
+            if (creditsText == null) {
+                return;
+            }
+            try {
+                int credits = Integer.parseInt(creditsText);
+                business.getEnrollmentDirectory().registerStudentForCourse(studentId, courseId, courseName, credits);
+                JOptionPane.showMessageDialog(this, "Enrollment successful.", "Registration",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Credits must be an integer.", "Validation Error",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+            return;
+        }
+
+        if ("DROP".equalsIgnoreCase(action.trim())) {
+            String courseId = promptRequired("Enter course ID to drop:");
+            if (courseId == null) {
+                return;
+            }
+            boolean removed = business.getEnrollmentDirectory().dropStudentCourse(studentId, courseId);
+            JOptionPane.showMessageDialog(this,
+                    removed ? "Course dropped successfully." : "Course not found in enrollment.",
+                    "Registration", removed ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        JOptionPane.showMessageDialog(this, "Unknown action. Use ENROLL or DROP.", "Validation Error",
+                JOptionPane.WARNING_MESSAGE);
 }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
+        String studentId = getStudentId();
+        if (studentId == null) {
+            JOptionPane.showMessageDialog(this, "Student session invalid.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        StringBuilder transcript = new StringBuilder("Transcript\n\n");
+        ArrayList<String> lines =business.getEnrollmentDirectory().transcriptLines(studentId);
+
+    for (String line : lines) {
+        transcript.append(line).append("\n");
+        
+        }
+       ArrayList<Enrollment> current =business.getEnrollmentDirectory().getEnrollmentsForStudent(studentId);
+        transcript.append("\nCurrent course count: ").append(current.size());
+        JOptionPane.showMessageDialog(this, transcript.toString(), "Transcript", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private String promptRequired(String message) {
+        String value = JOptionPane.showInputDialog(this, message);
+        if (value == null || value.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Input is required.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+            return null;
+        }
+        return value.trim();
+    }
+
+    private String getStudentId() {
+        if (student == null || student.getPerson() == null) {
+            return null;
+        }
+        return student.getPerson().getPersonId();
+    }
+
+    private String safe(String value) {
+        return value == null ? "" : value;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

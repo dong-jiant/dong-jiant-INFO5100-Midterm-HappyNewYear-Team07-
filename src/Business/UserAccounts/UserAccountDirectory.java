@@ -38,7 +38,7 @@ public class UserAccountDirectory {
                 return ua;
             }
         }
-            return null; //not found after going through the whole list
+            return null; 
          }
      public UserAccount AuthenticateUser(String un, String pw) {
 
@@ -53,5 +53,18 @@ public class UserAccountDirectory {
      public ArrayList<UserAccount> getUserAccountList()
      {
          return useraccountlist;
+     }
+     public void removeUserAccount(UserAccount ua) {
+    useraccountlist.remove(ua);
+     }
+     public UserAccount findUserAccountByUsername(String username) {
+
+    for (UserAccount ua : useraccountlist) {
+        if (ua.getUserLoginName() != null 
+                && ua.getUserLoginName().equalsIgnoreCase(username)) {
+            return ua;
+        }
+    }
+    return null;
      }
 }

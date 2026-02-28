@@ -14,11 +14,18 @@ import Business.Person.Person;
 public class StudentProfile extends Profile {
 
     Person person;
+    private String hobbies;
+    private String interests;
+    private String academicProgress;
 //    Transcript transcript;
     //   EmploymentHistroy employmenthistory;
 
     public StudentProfile(Person p) {
         super(p);
+        this.person = p;
+        this.hobbies = "";
+        this.interests = "";
+        this.academicProgress = "On Track";
 
 //        transcript = new Transcript(this);
 //        employmenthistory = new EmploymentHistroy();
@@ -31,6 +38,30 @@ public class StudentProfile extends Profile {
 
     public boolean isMatch(String id) {
         return person.getPersonId().equals(id);
+    }
+
+    public String getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(String hobbies) {
+        this.hobbies = hobbies;
+    }
+
+    public String getInterests() {
+        return interests;
+    }
+
+    public void setInterests(String interests) {
+        this.interests = interests;
+    }
+
+    public String getAcademicProgress() {
+        return academicProgress;
+    }
+
+    public void setAcademicProgress(String academicProgress) {
+        this.academicProgress = academicProgress;
     }
 
 }
