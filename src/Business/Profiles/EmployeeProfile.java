@@ -14,15 +14,44 @@ import Business.Person.Person;
 public class EmployeeProfile extends Profile {
 
 
+    private String title;
+    private String phone;
+    private double salary;
 
     public EmployeeProfile(Person p) {
-
-        super(p); 
-
+        super(p);
     }
+
+
     @Override
-    public String getRole(){
-        return  "Admin";
+    public String getRole() {
+        return "Admin";
+    }
+
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
     }
 
 }

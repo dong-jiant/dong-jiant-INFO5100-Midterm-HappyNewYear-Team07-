@@ -6,6 +6,9 @@
 package UserInterface.WorkAreas.AdminRole.ManagePersonnelWorkResp;
 
 import Business.Business;
+import Business.Person.Person;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 
 
 import javax.swing.JPanel;
@@ -21,6 +24,7 @@ public class ManagePersonsJPanel extends javax.swing.JPanel {
      */
     JPanel CardSequencePanel;
     Business business;
+    Person selectedPerson;
 
 
     public ManagePersonsJPanel(Business bz, JPanel jp) {
@@ -42,8 +46,12 @@ public class ManagePersonsJPanel extends javax.swing.JPanel {
 
         Back = new javax.swing.JButton();
         Next = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        lblNUID = new javax.swing.JLabel();
+        btnAddPerson = new javax.swing.JButton();
+        txtNUID = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(0, 153, 153));
         setLayout(null);
@@ -55,7 +63,7 @@ public class ManagePersonsJPanel extends javax.swing.JPanel {
             }
         });
         add(Back);
-        Back.setBounds(20, 260, 76, 32);
+        Back.setBounds(20, 260, 80, 23);
 
         Next.setText("Next >>");
         Next.addActionListener(new java.awt.event.ActionListener() {
@@ -64,41 +72,114 @@ public class ManagePersonsJPanel extends javax.swing.JPanel {
             }
         });
         add(Next);
-        Next.setBounds(500, 260, 80, 32);
+        Next.setBounds(500, 260, 80, 23);
 
-        jLabel1.setText("Name");
-        add(jLabel1);
-        jLabel1.setBounds(20, 60, 190, 16);
+        lblName.setText("Name");
+        add(lblName);
+        lblName.setBounds(200, 140, 50, 17);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel2.setText("Manage Personnel (HR)");
         add(jLabel2);
-        jLabel2.setBounds(21, 20, 550, 29);
+        jLabel2.setBounds(21, 20, 550, 28);
+
+        lblNUID.setText("NUID");
+        add(lblNUID);
+        lblNUID.setBounds(200, 100, 30, 17);
+
+        btnAddPerson.setText("Add Person");
+        btnAddPerson.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddPersonActionPerformed(evt);
+            }
+        });
+        add(btnAddPerson);
+        btnAddPerson.setBounds(220, 260, 140, 23);
+        add(txtNUID);
+        txtNUID.setBounds(270, 100, 120, 23);
+        add(txtName);
+        txtName.setBounds(270, 140, 120, 23);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         // TODO add your handling code here:
-        CardSequencePanel.remove(this);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
- //       ((java.awt.CardLayout)CardSequencePanel.getLayout()).show(CardSequencePanel, "IdentifyEventTypes");
+     CardSequencePanel.remove(this);
+    java.awt.CardLayout layout = (java.awt.CardLayout) CardSequencePanel.getLayout();
+    layout.previous(CardSequencePanel);
 
     }//GEN-LAST:event_BackActionPerformed
 
     private void NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextActionPerformed
         // TODO add your handling code here:
-        
-        AdministerPersonJPanel mppd = new AdministerPersonJPanel(business, CardSequencePanel);
-        CardSequencePanel.add(mppd);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        if (selectedPerson == null) {
+        JOptionPane.showMessageDialog(this,
+                "Please add a person first.",
+                "Warning",
+                JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    AdministerPersonJPanel panel =
+            new AdministerPersonJPanel(business, CardSequencePanel, selectedPerson, this);
+
+    CardSequencePanel.add("AdministerPersonJPanel", panel);
+    ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
     }//GEN-LAST:event_NextActionPerformed
+
+    private void btnAddPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPersonActionPerformed
+  String nuid = txtNUID.getText().trim();
+    String name = txtName.getText().trim();
+
+    if (nuid.isEmpty() || name.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "Please enter both NUID and Name.",
+                "Warning",
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+  
+    Person existing = business.getPersonDirectory().findPerson(nuid);
+    if (existing != null) {
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "This NUID already exists. Please use another NUID.",
+                "Warning",
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+
+   Person p = business.getPersonDirectory().newPerson(nuid);
+   selectedPerson = p;
+    p.setName(name);
+
+   JOptionPane.showMessageDialog(this,"Person added successfully.");
+
+AdministerPersonJPanel panel =new AdministerPersonJPanel(business, CardSequencePanel, p, this);
+
+CardSequencePanel.add("AdministerPerson", panel);
+((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+
+
+    txtNUID.setText("");
+    txtName.setText("");
+
+
+
+
+    }//GEN-LAST:event_btnAddPersonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
     private javax.swing.JButton Next;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnAddPerson;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblNUID;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JTextField txtNUID;
+    private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 
 }
