@@ -14,7 +14,6 @@ import UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp.ManageFa
 import UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp.ManageStudents;
 import Business.Business;
 import Business.UserAccounts.UserAccount;
-import UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp.AdminUserAccount;
 import UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp.ManageUserAccountsJPanel;
 import UserInterface.WorkAreas.AdminRole.ManagePersonnelWorkResp.ManagePersonsJPanel;
 
@@ -201,8 +200,7 @@ ManageStudents panel = new ManageStudents(CardSequencePanel, business);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton6IdentifyEventsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6IdentifyEventsActionPerformed
-AdminUserAccount panel = new AdminUserAccount(account, business, CardSequencePanel, null);
-
+    AdminMyProfile panel = new AdminMyProfile(CardSequencePanel, account);
     CardSequencePanel.add("AdminMyProfile", panel);
     ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
     }//GEN-LAST:event_jButton6IdentifyEventsActionPerformed
@@ -222,4 +220,3 @@ AdminUserAccount panel = new AdminUserAccount(account, business, CardSequencePan
     // End of variables declaration//GEN-END:variables
 
 }
-

@@ -6,6 +6,9 @@
 */
 package Business;
 
+
+import Business.Academic.CourseDirectory;
+import Business.Academic.EnrollmentDirectory;
 import Business.Person.Person;
 import Business.Person.PersonDirectory;
 import Business.Profiles.EmployeeDirectory;
@@ -71,6 +74,9 @@ class ConfigureABusiness {
 
         StudentDirectory studentdirectory = business.getStudentDirectory();
         StudentProfile studentprofile0 = studentdirectory.newStudentProfile(person003);
+        studentprofile0.setHobbies("Photography, Chess");
+        studentprofile0.setInterests("Software Architecture, Data Analytics");
+        studentprofile0.setAcademicProgress("On Track");
 
         FacultyDirectory facultydirectory = business.getFacultyDirectory();
         FacultyProfile facultyprofile0 = facultydirectory.newFacultyProfile(person005);
@@ -87,6 +93,21 @@ class ConfigureABusiness {
 
         UserAccount facultyAccount =
                 uadirectory.newUserAccount(facultyprofile0, "faculty", "faculty");
+
+         CourseDirectory courseDirectory = business.getCourseDirectory();
+        EnrollmentDirectory enrollmentDirectory = business.getEnrollmentDirectory();
+
+        String facultyId = person005.getPersonId();   
+        String studentId = person003.getPersonId();   
+
+    
+        courseDirectory.addOrUpdateCourse(facultyId,"INFO5100","Application Engineering and Development",4);
+        courseDirectory.addOrUpdateCourse(facultyId,"CSYE6200","Object-Oriented Design",4);
+
+
+        enrollmentDirectory.registerStudentForCourse(studentId,"INFO5100","Application Engineering and Development",4);
+        enrollmentDirectory.registerStudentForCourse(studentId,"CSYE6200","Object-Oriented Design",4);       
+        enrollmentDirectory.recordGrade(studentId,"INFO5100",3.7,facultyId);
 
         return business;
 

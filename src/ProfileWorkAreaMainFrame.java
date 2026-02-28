@@ -16,6 +16,8 @@ import Business.UserAccounts.UserAccountDirectory;
 import UserInterface.WorkAreas.AdminRole.AdminRoleWorkAreaJPanel;
 import UserInterface.WorkAreas.FacultyRole.FacultyWorkAreaJPanel;
 import UserInterface.WorkAreas.StudentRole.StudentWorkAreaJPanel;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -25,6 +27,7 @@ import javax.swing.JPanel;
 public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
 
     Business business;
+    private UserAccount activeSessionAccount;
 
     /**
      * Creates new form PricingMainFrame
@@ -33,7 +36,8 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
     public ProfileWorkAreaMainFrame() {
         initComponents();
         business = ConfigureABusiness.initialize();
-        
+        PasswordTextField.setText("admin");
+        activeSessionAccount = null;
 
     }
 
@@ -130,57 +134,87 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
-        // TODO add your handling code here:
-        //      WorkAreaJPanel ura = new WorkAreaJPanel(workareajpanl);
+        if (activeSessionAccount != null) {
+            logoutActiveSession();
+            return;
+        }
 
-        String un = UserNameTextField.getText();
-        String pw = PasswordTextField.getText();
+        String un = UserNameTextField.getText() == null ? "" : UserNameTextField.getText().trim();
+        String pw = PasswordTextField.getText() == null ? "" : PasswordTextField.getText().trim();
+        if (un.isEmpty() || pw.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username and password are required.", "Login Error",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
         UserAccountDirectory uad = business.getUserAccountDirectory();
         UserAccount useraccount = uad.AuthenticateUser(un, pw);
         if (useraccount == null) {
+            JOptionPane.showMessageDialog(this, "Invalid credentials. Please try again.", "Login Failed",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
-        StudentWorkAreaJPanel studentworkareajpanel;
-        FacultyWorkAreaJPanel facultyworkarea;
-        AdminRoleWorkAreaJPanel adminworkarea;
-        String r = useraccount.getRole();
+
         Profile profile = useraccount.getAssociatedPersonProfile();
+        if (profile == null || profile.getRole() == null) {
+            JOptionPane.showMessageDialog(this, "User profile is invalid.", "Authorization Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        activeSessionAccount = useraccount;
+        activeSessionAccount.touchLastAccess();
+        jButton1.setText("Logout");
+        UserNameTextField.setEnabled(false);
+        PasswordTextField.setEnabled(false);
+        CardSequencePanel.removeAll();
 
-        if (profile instanceof EmployeeProfile) {
-
-            adminworkarea = new AdminRoleWorkAreaJPanel(business, CardSequencePanel, useraccount);
+        if (profile instanceof EmployeeProfile && "Admin".equalsIgnoreCase(profile.getRole())) {
+            AdminRoleWorkAreaJPanel adminworkarea =
+                    new AdminRoleWorkAreaJPanel(business, CardSequencePanel, useraccount);
             CardSequencePanel.removeAll();
             CardSequencePanel.add("Admin", adminworkarea);
-            ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
-
+            ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+            return;
         }
-        
-        if (profile instanceof StudentProfile) {
 
+        if (profile instanceof StudentProfile && "Student".equalsIgnoreCase(profile.getRole())) {
             StudentProfile spp = (StudentProfile) profile;
-            studentworkareajpanel = new StudentWorkAreaJPanel(business, spp, CardSequencePanel);
-            CardSequencePanel.removeAll();
+            StudentWorkAreaJPanel studentworkareajpanel =
+                    new StudentWorkAreaJPanel(business, spp, CardSequencePanel, useraccount);
             CardSequencePanel.add("student", studentworkareajpanel);
-            ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
-
+            ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+            return;
         }
 
-      if (profile instanceof FacultyProfile) {
-            facultyworkarea = new FacultyWorkAreaJPanel(business, CardSequencePanel);
-            CardSequencePanel.removeAll();
+        if (profile instanceof FacultyProfile && "Faculty".equalsIgnoreCase(profile.getRole())) {
+            FacultyWorkAreaJPanel facultyworkarea =
+                    new FacultyWorkAreaJPanel(business, CardSequencePanel, useraccount);
             CardSequencePanel.add("faculty", facultyworkarea);
-            ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
-
+            ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+            return;
         }
 
+        JOptionPane.showMessageDialog(this, "Access denied for this role.", "Authorization Error",
+                JOptionPane.ERROR_MESSAGE);
+        logoutActiveSession();
 
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     private void PasswordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PasswordTextFieldActionPerformed
+
+    private void logoutActiveSession() {
+        activeSessionAccount = null;
+        jButton1.setText("Login");
+        UserNameTextField.setEnabled(true);
+        PasswordTextField.setEnabled(true);
+        PasswordTextField.setText("");
+        CardSequencePanel.removeAll();
+        CardSequencePanel.add("card2", jLabel3);
+        ((CardLayout) CardSequencePanel.getLayout()).show(CardSequencePanel, "card2");
+    }
 
     /**
      * @param args the command line arguments

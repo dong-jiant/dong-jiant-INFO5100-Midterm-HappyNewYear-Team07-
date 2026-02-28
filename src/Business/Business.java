@@ -9,8 +9,11 @@ import Business.Person.PersonDirectory;
 import Business.Profiles.EmployeeDirectory;
 import Business.Profiles.FacultyDirectory;
 import Business.Profiles.StudentDirectory;
-
 import Business.UserAccounts.UserAccountDirectory;
+
+// 新增 import
+import Business.Academic.CourseDirectory;
+import Business.Academic.EnrollmentDirectory;
 
 /**
  *
@@ -19,26 +22,34 @@ import Business.UserAccounts.UserAccountDirectory;
 public class Business {
 
     String name;
-    PersonDirectory persondirectory; //all people profiles regardless of the role
 
+ 
+    PersonDirectory persondirectory; 
     EmployeeDirectory employeedirectory;
     UserAccountDirectory useraccountdirectory;
     StudentDirectory studentdirectory;
     FacultyDirectory facultydirectory;
 
 
+    CourseDirectory courseDirectory;
+    EnrollmentDirectory enrollmentDirectory;
+
     public Business(String n) {
         name = n;
 
+        // 原有初始化
         persondirectory = new PersonDirectory();
         employeedirectory = new EmployeeDirectory(this);
         useraccountdirectory = new UserAccountDirectory();
         studentdirectory = new StudentDirectory();
         facultydirectory = new FacultyDirectory(this);
 
-
+        // 新增初始化
+        courseDirectory = new CourseDirectory();
+        enrollmentDirectory = new EnrollmentDirectory();
     }
 
+    // ===== 原有 Getter =====
     public PersonDirectory getPersonDirectory() {
         return persondirectory;
     }
@@ -47,17 +58,24 @@ public class Business {
         return useraccountdirectory;
     }
 
-
     public EmployeeDirectory getEmployeeDirectory() {
         return employeedirectory;
     }
 
-    public StudentDirectory getStudentDirectory(){
+    public StudentDirectory getStudentDirectory() {
         return studentdirectory;
     }
-    
-    public FacultyDirectory getFacultyDirectory(){
-    return facultydirectory;
-}
 
+    public FacultyDirectory getFacultyDirectory() {
+        return facultydirectory;
+    }
+
+ 
+    public CourseDirectory getCourseDirectory() {
+        return courseDirectory;
+    }
+
+    public EnrollmentDirectory getEnrollmentDirectory() {
+        return enrollmentDirectory;
+    }
 }

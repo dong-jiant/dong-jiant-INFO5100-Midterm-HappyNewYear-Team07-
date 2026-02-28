@@ -148,7 +148,7 @@ String nuid = JOptionPane.showInputDialog(this, "Enter NUID:");
     }
 
     UserAccount existing = business.getUserAccountDirectory().findUserAccount(nuid.trim());
-    if (existing != null) {
+    if (existing != null || business.getPersonDirectory().findPerson(nuid.trim()) != null) {
         JOptionPane.showMessageDialog(this, "A user with this NUID already exists.");
         return;
     }
@@ -164,6 +164,10 @@ String nuid = JOptionPane.showInputDialog(this, "Enter NUID:");
         JOptionPane.showMessageDialog(this, "Username cannot be empty.");
         return;
     }
+    if (business.getUserAccountDirectory().findUserAccountByUsername(username.trim()) != null) {
+        JOptionPane.showMessageDialog(this, "Username already exists.");
+        return;
+    }
 
     String password = JOptionPane.showInputDialog(this, "Enter password:");
     if (password == null || password.trim().isEmpty()) {
@@ -171,9 +175,23 @@ String nuid = JOptionPane.showInputDialog(this, "Enter NUID:");
         return;
     }
 
+    String email = JOptionPane.showInputDialog(this, "Enter email:");
+    if (email == null || email.trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Email cannot be empty.");
+        return;
+    }
+
+    String department = JOptionPane.showInputDialog(this, "Enter department:");
+    if (department == null || department.trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Department cannot be empty.");
+        return;
+    }
+
    
     Person p = business.getPersonDirectory().newPerson(nuid.trim());
     p.setName(name.trim()); 
+    p.setEmail(email.trim());
+    p.setDepartment(department.trim());
 
     StudentProfile sp = business.getStudentDirectory().newStudentProfile(p);
     business.getUserAccountDirectory().newUserAccount(sp, username.trim(), password);

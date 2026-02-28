@@ -167,7 +167,16 @@ public ManageFaculty(JPanel userProcessContainer, Business business) {
         return;
     }
 
-    Person p = new Person(fid.trim());
+    if (business.getPersonDirectory().findPerson(fid.trim()) != null) {
+        JOptionPane.showMessageDialog(this, "Faculty ID already exists.", "Warning", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    if (business.getUserAccountDirectory().findUserAccountByUsername(username.trim()) != null) {
+        JOptionPane.showMessageDialog(this, "Username already exists.", "Warning", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    Person p = business.getPersonDirectory().newPerson(fid.trim());
     p.setName(name.trim());
     p.setEmail(email.trim());
 
@@ -298,4 +307,3 @@ userProcessContainer.remove(this);
      }
    }
 }
-
