@@ -39,7 +39,16 @@ public class StudentDirectory {
                 return sp;
             }
         }
-            return null; //not found after going through the whole list
+            return null; 
          }
     
+    
+    public void removeStudentProfile(StudentProfile sp) {
+        studentlist.remove(sp);
+    }
+
+ 
+    public ArrayList<StudentProfile> getStudentList() {
+        return studentlist;
+    }
 }
