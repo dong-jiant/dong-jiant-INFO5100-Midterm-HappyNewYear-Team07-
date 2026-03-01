@@ -13,10 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * Coursework Management Panel
- * Allows a student to submit assignments for enrolled courses
- * and view all previously submitted assignments.
- *
  * @author Yiru Chen
  */
 public class CourseworkManagementJPanel extends javax.swing.JPanel {
@@ -25,13 +21,6 @@ public class CourseworkManagementJPanel extends javax.swing.JPanel {
     private Business business;
     private StudentProfile student;
 
-    /**
-     * Constructor — initialises components and loads submission history.
-     *
-     * @param container CardLayout parent panel
-     * @param b         shared Business object
-     * @param sp        logged-in StudentProfile
-     */
     public CourseworkManagementJPanel(JPanel container, Business b, StudentProfile sp) {
         initComponents();
         this.userProcessContainer = container;
@@ -143,15 +132,7 @@ public class CourseworkManagementJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>
 
-    // ---------------------------------------------------------------
-    // Button Handlers
-    // ---------------------------------------------------------------
 
-    /**
-     * Submit Assignment button:
-     * Validates inputs, calls EnrollmentDirectory.submitAssignment(),
-     * then refreshes the submission history table.
-     */
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {
         // Validate session
         if (student == null || student.getPerson() == null) {
@@ -192,20 +173,11 @@ public class CourseworkManagementJPanel extends javax.swing.JPanel {
         refreshSubmissionTable();
     }
 
-    /** Navigate back to the Student Work Area. */
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {
         CardLayout cl = (CardLayout) userProcessContainer.getLayout();
         cl.previous(userProcessContainer);
     }
 
-    // ---------------------------------------------------------------
-    // Helper Methods
-    // ---------------------------------------------------------------
-
-    /**
-     * Reloads the submission history table with all assignments
-     * submitted by the current student.
-     */
     private void refreshSubmissionTable() {
         DefaultTableModel model = (DefaultTableModel) tblSubmissions.getModel();
         model.setRowCount(0);
