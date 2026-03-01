@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Administrator
+ * @author Jiachuan Li
  */
 public class ManageStudentsProfilesJPanel extends javax.swing.JPanel {
 

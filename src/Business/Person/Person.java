@@ -7,7 +7,7 @@ package Business.Person;
 
 /**
  *
- * @author 
+ * @author Jianting Dong
  */
 public class Person {
 

@@ -18,7 +18,7 @@ import Business.UserAccounts.UserAccountDirectory;
 
 /**
  *
- * @author stelladong
+ * @@author Jianting Dong
  */
 public class ManageStudents extends javax.swing.JPanel {
     private JPanel userProcessContainer;

@@ -6,7 +6,7 @@
  /*
  * WorkAreaJPanel.java
  *
- * Created on May 17, 2020, 8:35:29 AM
+ * @author Jianting Dong
  */
 package UserInterface.WorkAreas.AdminRole;
 
@@ -206,10 +206,10 @@ ManageStudents panel = new ManageStudents(CardSequencePanel, business);
     ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
     }//GEN-LAST:event_jButton6IdentifyEventsActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed FacultyWorkAreaJPanel
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {                                                               
      ManageFaculty panel = new ManageFaculty(CardSequencePanel, business);
         CardSequencePanel.add("ManageFaculty", panel);
-((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);    }//GEN-LAST:event_jButton9ActionPerformed
+((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);    }                                        
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

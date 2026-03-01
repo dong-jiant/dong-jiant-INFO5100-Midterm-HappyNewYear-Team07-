@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 /**
  *
- * @author stelladong
+ * @author Jianting Dong
  */
 public class AdminStudents extends javax.swing.JPanel {
     private JPanel userProcessContainer;

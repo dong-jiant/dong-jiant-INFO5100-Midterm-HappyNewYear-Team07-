@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author stelladong
+ * @author Jianting Dong
  */
 public class FacultyDirectory {
 Business business;

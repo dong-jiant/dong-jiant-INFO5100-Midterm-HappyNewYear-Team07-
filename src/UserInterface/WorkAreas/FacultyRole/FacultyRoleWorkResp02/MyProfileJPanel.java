@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Administrator
+ *@author Jiachuan Li
  */
 public class MyProfileJPanel extends javax.swing.JPanel {
 

@@ -6,7 +6,7 @@ package Business.Academic;
 
 /**
  *
- * @author stelladong
+ * @author Jianting Dong
  */
 public class CourseInfo {
    String facultyId;

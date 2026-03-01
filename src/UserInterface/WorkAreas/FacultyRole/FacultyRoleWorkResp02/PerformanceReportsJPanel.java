@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Administrator
+ * @author Jiachuan Li
  */
 public class PerformanceReportsJPanel extends javax.swing.JPanel {
 

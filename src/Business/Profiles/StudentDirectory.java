@@ -11,7 +11,7 @@ import Business.Person.Person;
 
 /**
  *
- * @author kal bugrara
+ * @author Jianting Dong
  */
 public class StudentDirectory {
 
