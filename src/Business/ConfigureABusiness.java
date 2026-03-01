@@ -91,15 +91,15 @@ public class ConfigureABusiness {
         // Create User Accounts
         UserAccountDirectory uadirectory = business.getUserAccountDirectory();
         UserAccount adminAccount = uadirectory.newUserAccount(employeeprofile0, "admin", "admin");
-        UserAccount studentAccount = uadirectory.newUserAccount(studentprofile0, "adam", "adam");
+        UserAccount studentAccount = uadirectory.newUserAccount(studentprofile0, "student", "student");
         UserAccount facultyAccount = uadirectory.newUserAccount(facultyprofile0, "faculty", "faculty");
 
         // Create Courses
         CourseDirectory courseDirectory = business.getCourseDirectory();
         String facultyId = person005.getPersonId();
-        courseDirectory.addOrUpdateCourse(facultyId, "CS5100", "Application Engineering", 4);
-        courseDirectory.addOrUpdateCourse(facultyId, "CS5200", "Database Management", 4);
-        courseDirectory.addOrUpdateCourse(facultyId, "CS5800", "Algorithms", 4);
+        courseDirectory.addOrUpdateCourse(facultyId, "INFO5100", "Application Engineering", 4);
+        courseDirectory.addOrUpdateCourse(facultyId, "INFO5200", "Database Management", 4);
+        courseDirectory.addOrUpdateCourse(facultyId, "INFO5800", "Data Analytics", 4);
 
         // Create Enrollments and Grades
         EnrollmentDirectory enrollmentDirectory = business.getEnrollmentDirectory();
@@ -107,20 +107,20 @@ public class ConfigureABusiness {
         String studentId2 = person011.getPersonId();
         String studentId3 = person012.getPersonId();
 
-        enrollmentDirectory.registerStudentForCourse(studentId1, "CS5100", "Application Engineering", 4);
-        enrollmentDirectory.registerStudentForCourse(studentId1, "CS5200", "Database Management", 4);
-        enrollmentDirectory.recordGrade(studentId1, "CS5100", 3.5, facultyId);
-        enrollmentDirectory.recordGrade(studentId1, "CS5200", 3.0, facultyId);
+        enrollmentDirectory.registerStudentForCourse(studentId1, "INFO5100", "Application Engineering", 4);
+        enrollmentDirectory.registerStudentForCourse(studentId1, "INFO5200", "Database Management", 4);
+        enrollmentDirectory.recordGrade(studentId1, "INFO5100", 3.5, facultyId);
+        enrollmentDirectory.recordGrade(studentId1, "INFO5200", 3.0, facultyId);
 
-        enrollmentDirectory.registerStudentForCourse(studentId2, "CS5100", "Application Engineering", 4);
-        enrollmentDirectory.registerStudentForCourse(studentId2, "CS5200", "Database Management", 4);
-        enrollmentDirectory.recordGrade(studentId2, "CS5100", 4.0, facultyId);
-        enrollmentDirectory.recordGrade(studentId2, "CS5200", 3.8, facultyId);
+        enrollmentDirectory.registerStudentForCourse(studentId2, "INFO5100", "Application Engineering", 4);
+        enrollmentDirectory.registerStudentForCourse(studentId2, "INFO5200", "Database Management", 4);
+        enrollmentDirectory.recordGrade(studentId2, "INFO5100", 4.0, facultyId);
+        enrollmentDirectory.recordGrade(studentId2, "INFO5200", 3.8, facultyId);
 
-        enrollmentDirectory.registerStudentForCourse(studentId3, "CS5100", "Application Engineering", 4);
-        enrollmentDirectory.registerStudentForCourse(studentId3, "CS5800", "Algorithms", 4);
-        enrollmentDirectory.recordGrade(studentId3, "CS5100", 3.2, facultyId);
-        enrollmentDirectory.recordGrade(studentId3, "CS5800", 3.4, facultyId);
+        enrollmentDirectory.registerStudentForCourse(studentId3, "INFO5100", "Application Engineering", 4);
+        enrollmentDirectory.registerStudentForCourse(studentId3, "INFO5800", "Data Analytics", 4);
+        enrollmentDirectory.recordGrade(studentId3, "INFO5100", 3.2, facultyId);
+        enrollmentDirectory.recordGrade(studentId3, "INFO5800", 3.4, facultyId);
 
         return business;
 

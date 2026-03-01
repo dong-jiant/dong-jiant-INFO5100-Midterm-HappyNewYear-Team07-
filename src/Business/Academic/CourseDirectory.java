@@ -11,19 +11,22 @@ import java.util.ArrayList;
  * @author Jianting Dong
  */
 public class CourseDirectory {
+
     private ArrayList<CourseInfo> courseList;
 
     public CourseDirectory() {
         courseList = new ArrayList<CourseInfo>();
     }
 
+    // Add new course or update existing course
+    public void addOrUpdateCourse(String facultyId, String courseId, String courseName, int credits) {
 
-    public void addOrUpdateCourse(String facultyId,String courseId,String courseName,int credits) {
         if (isBlank(facultyId) || isBlank(courseId) || isBlank(courseName) || credits <= 0) {
             return;
         }
 
         CourseInfo existing = null;
+
         for (CourseInfo c : courseList) {
             if (c.getFacultyId().equals(facultyId)
                     && c.getCourseId().equals(courseId)) {
@@ -45,16 +48,20 @@ public class CourseDirectory {
         }
     }
 
+    // Get all courses for a specific faculty
     public ArrayList<CourseInfo> getCoursesForFaculty(String facultyId) {
         ArrayList<CourseInfo> result = new ArrayList<CourseInfo>();
+
         for (CourseInfo c : courseList) {
             if (c.getFacultyId().equals(facultyId)) {
                 result.add(c);
             }
         }
+
         return result;
     }
 
+    // Find a course by courseId
     public CourseInfo findCourse(String courseId) {
         for (CourseInfo c : courseList) {
             if (c.getCourseId().equals(courseId)) {
@@ -62,6 +69,11 @@ public class CourseDirectory {
             }
         }
         return null;
+    }
+
+    // Added for Student panels
+    public ArrayList<CourseInfo> getCourseList() {
+        return courseList;
     }
 
     private boolean isBlank(String value) {
