@@ -5,14 +5,14 @@
 package UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp;
 
 import Business.Business;
+import Business.Person.Person;
+import Business.Profiles.Profile;
+import Business.Profiles.StudentProfile;
 import Business.UserAccounts.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import Business.Person.Person;
-import Business.Profiles.Profile;
-import Business.Profiles.StudentProfile;
 import Business.UserAccounts.UserAccount;
 import Business.UserAccounts.UserAccountDirectory;
 

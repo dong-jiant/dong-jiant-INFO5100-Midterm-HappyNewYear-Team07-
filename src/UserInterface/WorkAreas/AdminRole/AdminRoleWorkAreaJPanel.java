@@ -10,14 +10,15 @@
  */
 package UserInterface.WorkAreas.AdminRole;
 
-import UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp.ManageFaculty;
-import UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp.ManageStudents;
+import javax.swing.JPanel;
+
 import Business.Business;
 import Business.UserAccounts.UserAccount;
+import UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp.ManageFaculty;
+import UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp.ManageStudents;
 import UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp.ManageUserAccountsJPanel;
 import UserInterface.WorkAreas.AdminRole.ManagePersonnelWorkResp.ManagePersonsJPanel;
-
-import javax.swing.JPanel;
+import UserInterface.WorkAreas.FacultyRole.FacultyWorkAreaJPanel;
 
 /**
  *
@@ -205,8 +206,8 @@ ManageStudents panel = new ManageStudents(CardSequencePanel, business);
     ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
     }//GEN-LAST:event_jButton6IdentifyEventsActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
- ManageFaculty panel = new ManageFaculty(CardSequencePanel, business);
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed FacultyWorkAreaJPanel
+     ManageFaculty panel = new ManageFaculty(CardSequencePanel, business);
         CardSequencePanel.add("ManageFaculty", panel);
 ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);    }//GEN-LAST:event_jButton9ActionPerformed
 
