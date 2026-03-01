@@ -9,13 +9,12 @@ package Business;
 
 import Business.Academic.CourseDirectory;
 import Business.Academic.EnrollmentDirectory;
-import Business.Person.Person;
 import Business.Person.PersonDirectory;
+import Business.Person.Person;
 import Business.Profiles.EmployeeDirectory;
 import Business.Profiles.EmployeeProfile;
 import Business.Profiles.StudentDirectory;
 import Business.Profiles.StudentProfile;
-
 import Business.UserAccounts.UserAccount;
 import Business.UserAccounts.UserAccountDirectory;
 import Business.Profiles.FacultyDirectory;
@@ -26,9 +25,9 @@ import Business.Profiles.FacultyProfile;
  *
  * @author kal bugrara
  */
-class ConfigureABusiness {
+public class ConfigureABusiness {
 
-     static Business initialize() {
+	public   static Business initialize() {
 
         Business business = new Business("Information Systems");
 
@@ -41,32 +40,27 @@ class ConfigureABusiness {
         person001.setEmail("john@northeastern.edu");
         person001.setDepartment("Administration");
 
-        // Extra persons
-        Person person002 = persondirectory.newPerson("002");
-        person002.setName("Gina Montana");
-
-        Person person003 = persondirectory.newPerson("123");   // Student NUID
+        // Students
+        Person person003 = persondirectory.newPerson("123");
         person003.setName("Adam Rollen");
         person003.setEmail("adam@northeastern.edu");
         person003.setDepartment("Information Systems");
 
-        Person person005 = persondirectory.newPerson("F001");  // Faculty ID
-        person005.setName("Jim Dellon");
-        person005.setEmail("jim@northeastern.edu");
-        person005.setDepartment("Information Systems");
+        Person person011 = persondirectory.newPerson("124");
+        person011.setName("Emily Chen");
+        person011.setEmail("emily@northeastern.edu");
+        person011.setDepartment("Computer Science");
 
-        Person person006 = persondirectory.newPerson("003");
-        person006.setName("Anna Shnider");
+        Person person012 = persondirectory.newPerson("125");
+        person012.setName("Michael Brown");
+        person012.setEmail("michael@northeastern.edu");
+        person012.setDepartment("Information Systems");
 
-        Person person007 = persondirectory.newPerson("004");
-        person007.setName("Laura Brown");
-
-        Person person008 = persondirectory.newPerson("005");
-        person008.setName("Jack While");
-
-        Person person009 = persondirectory.newPerson("006");
-        person009.setName("Fidelity");
-
+        // Faculty
+        Person person005 = persondirectory.newPerson("F001");
+        person005.setName("Dr. Sarah Johnson");
+        person005.setEmail("sarah.johnson@northeastern.edu");
+        person005.setDepartment("Computer Science");
 
         // Create Profiles
         EmployeeDirectory employeedirectory = business.getEmployeeDirectory();
@@ -74,40 +68,59 @@ class ConfigureABusiness {
 
         StudentDirectory studentdirectory = business.getStudentDirectory();
         StudentProfile studentprofile0 = studentdirectory.newStudentProfile(person003);
-        studentprofile0.setHobbies("Photography, Chess");
-        studentprofile0.setInterests("Software Architecture, Data Analytics");
-        studentprofile0.setAcademicProgress("On Track");
+        studentprofile0.setHobbies("Reading, Gaming, Basketball");
+        studentprofile0.setInterests("Artificial Intelligence, Machine Learning");
+        studentprofile0.setAcademicProgress("GPA: 3.75");
+
+        StudentProfile studentprofile1 = studentdirectory.newStudentProfile(person011);
+        studentprofile1.setHobbies("Music, Coding, Hiking");
+        studentprofile1.setInterests("Web Development, Cloud Computing");
+        studentprofile1.setAcademicProgress("GPA: 3.92");
+
+        StudentProfile studentprofile2 = studentdirectory.newStudentProfile(person012);
+        studentprofile2.setHobbies("Sports, Photography");
+        studentprofile2.setInterests("Data Analytics, Cybersecurity");
+        studentprofile2.setAcademicProgress("GPA: 3.45");
 
         FacultyDirectory facultydirectory = business.getFacultyDirectory();
         FacultyProfile facultyprofile0 = facultydirectory.newFacultyProfile(person005);
-
+        facultyprofile0.setDepartment("Computer Science");
+        facultyprofile0.setEmail("sarah.johnson@university.edu");
+        facultyprofile0.setPhone("123-456-7890");
 
         // Create User Accounts
         UserAccountDirectory uadirectory = business.getUserAccountDirectory();
+        UserAccount adminAccount = uadirectory.newUserAccount(employeeprofile0, "admin", "admin");
+        UserAccount studentAccount = uadirectory.newUserAccount(studentprofile0, "adam", "adam");
+        UserAccount facultyAccount = uadirectory.newUserAccount(facultyprofile0, "faculty", "faculty");
 
-        UserAccount adminAccount =
-                uadirectory.newUserAccount(employeeprofile0, "admin", "admin");
+        // Create Courses
+        CourseDirectory courseDirectory = business.getCourseDirectory();
+        String facultyId = person005.getPersonId();
+        courseDirectory.addOrUpdateCourse(facultyId, "CS5100", "Application Engineering", 4);
+        courseDirectory.addOrUpdateCourse(facultyId, "CS5200", "Database Management", 4);
+        courseDirectory.addOrUpdateCourse(facultyId, "CS5800", "Algorithms", 4);
 
-        UserAccount studentAccount =
-                uadirectory.newUserAccount(studentprofile0, "student", "student");
-
-        UserAccount facultyAccount =
-                uadirectory.newUserAccount(facultyprofile0, "faculty", "faculty");
-
-         CourseDirectory courseDirectory = business.getCourseDirectory();
+        // Create Enrollments and Grades
         EnrollmentDirectory enrollmentDirectory = business.getEnrollmentDirectory();
+        String studentId1 = person003.getPersonId();
+        String studentId2 = person011.getPersonId();
+        String studentId3 = person012.getPersonId();
 
-        String facultyId = person005.getPersonId();   
-        String studentId = person003.getPersonId();   
+        enrollmentDirectory.registerStudentForCourse(studentId1, "CS5100", "Application Engineering", 4);
+        enrollmentDirectory.registerStudentForCourse(studentId1, "CS5200", "Database Management", 4);
+        enrollmentDirectory.recordGrade(studentId1, "CS5100", 3.5, facultyId);
+        enrollmentDirectory.recordGrade(studentId1, "CS5200", 3.0, facultyId);
 
-    
-        courseDirectory.addOrUpdateCourse(facultyId,"INFO5100","Application Engineering and Development",4);
-        courseDirectory.addOrUpdateCourse(facultyId,"CSYE6200","Object-Oriented Design",4);
+        enrollmentDirectory.registerStudentForCourse(studentId2, "CS5100", "Application Engineering", 4);
+        enrollmentDirectory.registerStudentForCourse(studentId2, "CS5200", "Database Management", 4);
+        enrollmentDirectory.recordGrade(studentId2, "CS5100", 4.0, facultyId);
+        enrollmentDirectory.recordGrade(studentId2, "CS5200", 3.8, facultyId);
 
-
-        enrollmentDirectory.registerStudentForCourse(studentId,"INFO5100","Application Engineering and Development",4);
-        enrollmentDirectory.registerStudentForCourse(studentId,"CSYE6200","Object-Oriented Design",4);       
-        enrollmentDirectory.recordGrade(studentId,"INFO5100",3.7,facultyId);
+        enrollmentDirectory.registerStudentForCourse(studentId3, "CS5100", "Application Engineering", 4);
+        enrollmentDirectory.registerStudentForCourse(studentId3, "CS5800", "Algorithms", 4);
+        enrollmentDirectory.recordGrade(studentId3, "CS5100", 3.2, facultyId);
+        enrollmentDirectory.recordGrade(studentId3, "CS5800", 3.4, facultyId);
 
         return business;
 

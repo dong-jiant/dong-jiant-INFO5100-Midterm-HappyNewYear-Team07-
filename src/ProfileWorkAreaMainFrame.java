@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business;
 
+import Business.Business;
+import Business.ConfigureABusiness;
 import Business.Profiles.EmployeeProfile;
 import Business.Profiles.FacultyProfile;
 import Business.Profiles.Profile;
@@ -68,6 +69,7 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
 
         actionsidejpanel.setBackground(new java.awt.Color(0, 153, 153));
         actionsidejpanel.setMinimumSize(new java.awt.Dimension(200, 200));
+        //this.setBounds(100, 100, 800, 800);
 
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -188,8 +190,9 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
         }
 
         if (profile instanceof FacultyProfile && "Faculty".equalsIgnoreCase(profile.getRole())) {
-            FacultyWorkAreaJPanel facultyworkarea =
-                    new FacultyWorkAreaJPanel(business, CardSequencePanel, useraccount);
+            FacultyProfile fpp = (FacultyProfile) profile;
+            FacultyWorkAreaJPanel facultyworkarea = new FacultyWorkAreaJPanel(business, CardSequencePanel, useraccount);
+           // FacultyWorkAreaJPanel facultyworkarea = new FacultyWorkAreaJPanel( business,CardSequencePanel);
             CardSequencePanel.add("faculty", facultyworkarea);
             ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
             return;
