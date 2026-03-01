@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author kal bugrara
+* @author Jianting Dong
  */
 public class ManagePersonsJPanel extends javax.swing.JPanel {
 

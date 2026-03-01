@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author stelladong
+* @author Jianting Dong
  */
 public class ManageFaculty extends javax.swing.JPanel {
     private JPanel userProcessContainer;

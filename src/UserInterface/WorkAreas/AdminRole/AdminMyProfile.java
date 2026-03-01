@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author stelladong
+* @author Jianting Dong
  */
 public class AdminMyProfile extends javax.swing.JPanel {
     private JPanel workArea;

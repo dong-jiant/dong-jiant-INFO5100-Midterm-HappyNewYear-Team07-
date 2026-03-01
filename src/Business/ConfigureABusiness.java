@@ -24,7 +24,7 @@ import Business.Profiles.FacultyProfile;
 
 /**
  *
- * @author kal bugrara
+ * * @author Jianting Dong
  */
 class ConfigureABusiness {
 

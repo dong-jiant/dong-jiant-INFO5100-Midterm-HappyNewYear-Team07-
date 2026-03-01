@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  *
- * @author kal bugrara
+* @author Jianting Dong
  */
 public class UserAccount {
     

@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 /**
  *h
- * @author kal bugrara
+* @author Jianting Dong
  */
 
 public class AdminUserAccount extends javax.swing.JPanel {

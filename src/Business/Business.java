@@ -17,7 +17,7 @@ import Business.Academic.EnrollmentDirectory;
 
 /**
  *
- * @author kal bugrara
+ * * @author Jianting Dong
  */
 public class Business {
 

@@ -8,8 +8,7 @@ package Business.Profiles;
 import Business.Person.Person;
 
 /**
- *
- * @author kal bugrara
+* @author Jianting Dong
  */
 public class StudentProfile extends Profile {
 

@@ -7,7 +7,7 @@ package Business.Profiles;
 import Business.Person.Person;
 
 /**
- * Faculty profile
+* @author Jianting Dong
  */
 public class FacultyProfile extends Profile {
 

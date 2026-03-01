@@ -9,7 +9,7 @@ import Business.Person.Person;
 
 /**
  *
- * @author kal bugrara
+* @author Jianting Dong
  */
 public abstract class Profile {
     Person person;

@@ -5,8 +5,7 @@
 
  /*
  * WorkAreaJPanel.java
- *
- * Created on May 17, 2020, 8:35:29 AM
+* @author Jianting Dong
  */
 package UserInterface.WorkAreas.AdminRole;
 
