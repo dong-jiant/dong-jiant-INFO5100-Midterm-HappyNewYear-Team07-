@@ -194,7 +194,7 @@ public class StudentProfileJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {
         CardLayout cl = (CardLayout) userProcessContainer.getLayout();
-        cl.previous(userProcessContainer);
+        cl.show(userProcessContainer, "student");
     }
 
     private String safe(String s) {
