@@ -15,6 +15,7 @@ import Business.Business;
 import Business.Profiles.FacultyProfile;
 import Business.Profiles.Profile;
 import Business.UserAccounts.UserAccount;
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -24,8 +25,8 @@ import javax.swing.JPanel;
  */
 public class FacultyWorkAreaJPanel extends javax.swing.JPanel {
 
-    javax.swing.JPanel CardSequencePanel;
-    Business business;
+    private JPanel CardSequencePanel;
+    private Business business;
     private UserAccount facultyAccount;
 
     /**
@@ -37,12 +38,11 @@ public class FacultyWorkAreaJPanel extends javax.swing.JPanel {
         this(b, clp, null);
     }
 
-    public FacultyWorkAreaJPanel(Business b, JPanel clp, UserAccount account) {
-        business = b;
+       public FacultyWorkAreaJPanel(Business b, JPanel clp, UserAccount account) {
+        this.business = b;
         this.CardSequencePanel = clp;
         this.facultyAccount = account;
         initComponents();
-
     }
 
     /**
@@ -163,66 +163,66 @@ public class FacultyWorkAreaJPanel extends javax.swing.JPanel {
             return;
         }
 
-        CardSequencePanel.removeAll();
-        UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.ManageCoursesJPanel panel = 
-            new UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.ManageCoursesJPanel(business, profile, CardSequencePanel);
+        UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.ManageCoursesJPanel panel =new UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.ManageCoursesJPanel(business, profile, CardSequencePanel);
         CardSequencePanel.add("ManageCourses", panel);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+        layout.next(CardSequencePanel);
     }//GEN-LAST:event_jButton4IdentifyResourceAssetsActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        FacultyProfile profile = getFacultyProfile();
-        if (profile == null) {
-            JOptionPane.showMessageDialog(this, "Faculty session is invalid.", "Error", JOptionPane.ERROR_MESSAGE);
+    FacultyProfile profile = getFacultyProfile();
+    if (profile == null) {
+        JOptionPane.showMessageDialog(this, "Faculty session is invalid.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        CardSequencePanel.removeAll();
-        UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.ManageStudentsProfilesJPanel panel = 
-            new UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.ManageStudentsProfilesJPanel(business, profile, CardSequencePanel);
-        CardSequencePanel.add("ManageStudents", panel);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+    UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.ManageStudentsProfilesJPanel panel =new UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.ManageStudentsProfilesJPanel(business, profile, CardSequencePanel);
+
+    CardSequencePanel.add("ManageStudents", panel);
+    CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+    layout.next(CardSequencePanel);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6IdentifyEventsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6IdentifyEventsActionPerformed
-        FacultyProfile profile = getFacultyProfile();
+      FacultyProfile profile = getFacultyProfile();
         if (profile == null) {
             JOptionPane.showMessageDialog(this, "Faculty session is invalid.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        CardSequencePanel.removeAll();
-        UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.MyProfileJPanel panel = 
+        UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.MyProfileJPanel panel =
             new UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.MyProfileJPanel(business, profile, CardSequencePanel);
+
         CardSequencePanel.add("MyProfile", panel);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+        layout.next(CardSequencePanel);
 }//GEN-LAST:event_jButton6IdentifyEventsActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        FacultyProfile profile = getFacultyProfile();
+     FacultyProfile profile = getFacultyProfile();
         if (profile == null) {
             JOptionPane.showMessageDialog(this, "Faculty session is invalid.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        CardSequencePanel.removeAll();
-        UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.PerformanceReportsJPanel panel = 
+        UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.PerformanceReportsJPanel panel =
             new UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.PerformanceReportsJPanel(business, profile, CardSequencePanel);
+
         CardSequencePanel.add("PerformanceReports", panel);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+        layout.next(CardSequencePanel);                                         
 }//GEN-LAST:event_jButton11ActionPerformed
 
     private FacultyProfile getFacultyProfile() {
-    	
-    	  for (UserAccount ua : business.getUserAccountDirectory().getUserAccountList()) {
-    		  Profile prof = ua.getAssociatedPersonProfile();
-              if (!(prof instanceof FacultyProfile)) continue;
-              return (FacultyProfile)prof;
-    	  }
-    	
-        if (facultyAccount != null && facultyAccount.getAssociatedPersonProfile() instanceof FacultyProfile) {
-            return (FacultyProfile) facultyAccount.getAssociatedPersonProfile();
+        if (facultyAccount == null) {
+            return null;
         }
+
+        Profile prof = facultyAccount.getAssociatedPersonProfile();
+        if (prof instanceof FacultyProfile) {
+            return (FacultyProfile) prof;
+        }
+
         return null;
     }
 

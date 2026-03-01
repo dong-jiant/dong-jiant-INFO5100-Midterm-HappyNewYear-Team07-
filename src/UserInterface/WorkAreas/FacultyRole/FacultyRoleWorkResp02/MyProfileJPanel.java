@@ -167,11 +167,9 @@ public class MyProfileJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnupdateActionPerformed
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
-        CardSequencePanel.removeAll();
-        UserInterface.WorkAreas.FacultyRole.FacultyWorkAreaJPanel panel = 
-            new UserInterface.WorkAreas.FacultyRole.FacultyWorkAreaJPanel(business, CardSequencePanel, null);
-        CardSequencePanel.add("FacultyWorkArea", panel);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+ java.awt.CardLayout layout = (java.awt.CardLayout) CardSequencePanel.getLayout();
+    CardSequencePanel.remove(this); 
+    layout.previous(CardSequencePanel); 
     }//GEN-LAST:event_btnbackActionPerformed
 
 

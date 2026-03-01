@@ -191,8 +191,8 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
 
         if (profile instanceof FacultyProfile && "Faculty".equalsIgnoreCase(profile.getRole())) {
             FacultyProfile fpp = (FacultyProfile) profile;
-            FacultyWorkAreaJPanel facultyworkarea = new FacultyWorkAreaJPanel(business, CardSequencePanel, useraccount);
-           // FacultyWorkAreaJPanel facultyworkarea = new FacultyWorkAreaJPanel( business,CardSequencePanel);
+            FacultyWorkAreaJPanel facultyworkarea = 
+                    new FacultyWorkAreaJPanel(business, CardSequencePanel, useraccount);
             CardSequencePanel.add("faculty", facultyworkarea);
             ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
             return;
@@ -209,14 +209,23 @@ public class ProfileWorkAreaMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_PasswordTextFieldActionPerformed
 
     private void logoutActiveSession() {
-        activeSessionAccount = null;
-        jButton1.setText("Login");
-        UserNameTextField.setEnabled(true);
-        PasswordTextField.setEnabled(true);
-        PasswordTextField.setText("");
-        CardSequencePanel.removeAll();
-        CardSequencePanel.add("card2", jLabel3);
-        ((CardLayout) CardSequencePanel.getLayout()).show(CardSequencePanel, "card2");
+       activeSessionAccount = null;
+
+    
+    jButton1.setText("Login");          
+    UserNameTextField.setEnabled(true);
+    PasswordTextField.setEnabled(true);
+
+    UserNameTextField.setText("");      
+    PasswordTextField.setText("");
+
+    
+    CardSequencePanel.removeAll();
+    CardSequencePanel.add("card2", jLabel3);
+    CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+    layout.show(CardSequencePanel, "card2");
+    CardSequencePanel.revalidate();
+    CardSequencePanel.repaint();
     }
 
     /**

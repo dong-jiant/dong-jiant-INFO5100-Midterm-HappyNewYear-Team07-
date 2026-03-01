@@ -141,11 +141,9 @@ public class PerformanceReportsJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        CardSequencePanel.removeAll();
-        UserInterface.WorkAreas.FacultyRole.FacultyWorkAreaJPanel panel = 
-            new UserInterface.WorkAreas.FacultyRole.FacultyWorkAreaJPanel(business, CardSequencePanel, null);
-        CardSequencePanel.add("FacultyWorkArea", panel);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+     java.awt.CardLayout layout = (java.awt.CardLayout) CardSequencePanel.getLayout();
+    CardSequencePanel.remove(this);    
+    layout.previous(CardSequencePanel); 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {

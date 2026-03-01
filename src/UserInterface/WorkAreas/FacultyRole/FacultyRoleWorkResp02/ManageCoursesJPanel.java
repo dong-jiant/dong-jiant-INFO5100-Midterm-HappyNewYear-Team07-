@@ -8,6 +8,7 @@ import Business.Business;
 import Business.Profiles.FacultyProfile;
 import Business.Academic.CourseInfo;
 import Business.Academic.CourseDirectory;
+import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -49,11 +50,13 @@ public class ManageCoursesJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         
         for (CourseInfo course : courses) {
+            Integer sem = course.getSemester();
+            Object semDisplay = (sem == null || sem == 0) ? "N/A" : sem;
             model.addRow(new Object[]{
                 course.getCourseId(),
                 course.getCourseName(),
                 course.getCredits(),
-                "N/A"
+                semDisplay
             });
         }
     }
@@ -174,39 +177,59 @@ public class ManageCoursesJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
-        String courseId = txtCourseId.getText().trim();
-        String courseName = txtCourseName.getText().trim();
-        String creditsStr = txtCredits.getText().trim();
-        String semester = txtSemester.getText().trim();
-        
-        if (courseId.isEmpty() || courseName.isEmpty() || creditsStr.isEmpty() || semester.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "All fields are required", "Validation Error", JOptionPane.ERROR_MESSAGE);
+     int selectedRow = tblCourses.getSelectedRow();
+    if (selectedRow < 0) {
+        JOptionPane.showMessageDialog(
+            this,
+            "Please select a course in the table first.",
+            "Validation Error",
+            JOptionPane.ERROR_MESSAGE
+        );
+        return;
+    }
+
+    String courseId = txtCourseId.getText().trim();
+    String courseName = txtCourseName.getText().trim();
+    String creditsStr = txtCredits.getText().trim();
+    String semesterStr = txtSemester.getText().trim();
+
+    if (courseId.isEmpty() || courseName.isEmpty() || creditsStr.isEmpty() || semesterStr.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "All fields are required", "Validation Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    try {
+        int credits = Integer.parseInt(creditsStr);
+        if (credits <= 0) {
+            JOptionPane.showMessageDialog(this, "Credits must be positive", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
+        int semester;
         try {
-            int credits = Integer.parseInt(creditsStr);
-            if (credits <= 0) {
-                JOptionPane.showMessageDialog(this, "Credits must be positive", "Validation Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            
-            CourseDirectory cd = business.getCourseDirectory();
-            CourseInfo course = cd.findCourse(courseId);
-            
-            if (course != null) {
-                course.setCourseName(courseName);
-                course.setCredits(credits);
-                
-                JOptionPane.showMessageDialog(this, "Course updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-                loadCourses();
-                clearFields();
-            } else {
-                JOptionPane.showMessageDialog(this, "Course not found", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Credits must be a valid number", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            semester = Integer.parseInt(semesterStr);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Semester must be a valid number", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        CourseDirectory cd = business.getCourseDirectory();
+        CourseInfo course = cd.findCourse(courseId);
+
+        if (course != null) {
+            course.setCourseName(courseName);
+            course.setCredits(credits);
+            course.setSemester(semester);  
+
+            JOptionPane.showMessageDialog(this, "Course updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            loadCourses();
+            clearFields();
+        } else {
+            JOptionPane.showMessageDialog(this, "Course not found", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Credits must be a valid number", "Validation Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnupdateActionPerformed
 
     private void clearFields() {
@@ -217,11 +240,9 @@ public class ManageCoursesJPanel extends javax.swing.JPanel {
     }
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
-        CardSequencePanel.removeAll();
-        UserInterface.WorkAreas.FacultyRole.FacultyWorkAreaJPanel panel = 
-            new UserInterface.WorkAreas.FacultyRole.FacultyWorkAreaJPanel(business, CardSequencePanel, null);
-        CardSequencePanel.add("FacultyWorkArea", panel);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+ java.awt.CardLayout layout = (java.awt.CardLayout) CardSequencePanel.getLayout();
+    CardSequencePanel.remove(this); 
+    layout.previous(CardSequencePanel); 
     }//GEN-LAST:event_btnbackActionPerformed
 
     private void txtCourseIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCourseIdActionPerformed

@@ -138,11 +138,9 @@ public class ManageStudentsProfilesJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CardSequencePanel.removeAll();
-        UserInterface.WorkAreas.FacultyRole.FacultyWorkAreaJPanel panel = 
-            new UserInterface.WorkAreas.FacultyRole.FacultyWorkAreaJPanel(business, CardSequencePanel, null);
-        CardSequencePanel.add("FacultyWorkArea", panel);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+ java.awt.CardLayout layout = (java.awt.CardLayout) CardSequencePanel.getLayout();
+    CardSequencePanel.remove(this); 
+    layout.previous(CardSequencePanel); 
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

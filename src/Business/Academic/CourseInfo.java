@@ -13,6 +13,7 @@ public class CourseInfo {
    String courseId;
    String courseName;
    int credits;
+   Integer semester;
 
     public String getFacultyId() {
         return facultyId;
@@ -51,5 +52,11 @@ public class CourseInfo {
         return courseId + " - " + courseName;
     }
 
-    
+    public Integer getSemester() {
+    return semester;
+}
+
+    public void setSemester(Integer semester) {
+    this.semester = semester;
+    }
 }
