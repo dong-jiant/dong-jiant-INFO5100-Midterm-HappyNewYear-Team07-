@@ -188,7 +188,6 @@ public class CourseworkManagementJPanel extends javax.swing.JPanel {
         ArrayList<String> submissions = business.getEnrollmentDirectory().getSubmittedAssignments(studentId);
 
         for (String entry : submissions) {
-            // entry format: "COURSEID - AssignmentName"
             String[] parts = entry.split(" - ", 2);
             if (parts.length == 2) {
                 model.addRow(new Object[]{ parts[0], parts[1] });

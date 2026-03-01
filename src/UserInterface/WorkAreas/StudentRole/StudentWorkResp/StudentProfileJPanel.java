@@ -13,8 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- * My Profile Panel — view and update hobbies, interests, academic progress.
- *
  * @author Yiru Chen
  */
 public class StudentProfileJPanel extends javax.swing.JPanel {
@@ -160,7 +158,6 @@ public class StudentProfileJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>
 
-    /** 从 StudentProfile 读取数据填入界面 */
     private void loadProfile() {
         if (student == null || student.getPerson() == null) return;
 
@@ -172,7 +169,6 @@ public class StudentProfileJPanel extends javax.swing.JPanel {
         txtProgress.setText(safe(student.getAcademicProgress()));
     }
 
-    /** 保存修改后的 Profile 数据 */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
         if (student == null) return;
 
@@ -180,7 +176,6 @@ public class StudentProfileJPanel extends javax.swing.JPanel {
         String interests= txtInterests.getText().trim();
         String progress = txtProgress.getText().trim();
 
-        // 验证 progress 不能为空
         if (progress.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                 "Academic Progress cannot be empty.",
@@ -197,7 +192,6 @@ public class StudentProfileJPanel extends javax.swing.JPanel {
             "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /** 返回上一个 Panel */
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {
         CardLayout cl = (CardLayout) userProcessContainer.getLayout();
         cl.previous(userProcessContainer);
