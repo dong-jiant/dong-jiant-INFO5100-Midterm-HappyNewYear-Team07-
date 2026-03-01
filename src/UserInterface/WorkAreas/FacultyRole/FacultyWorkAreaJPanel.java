@@ -11,15 +11,10 @@
 package UserInterface.WorkAreas.FacultyRole;
 
 
-import Business.Academic.CourseInfo;
 import Business.Business;
-import Business.Person.Person;
 import Business.Profiles.FacultyProfile;
-import Business.Profiles.StudentProfile;
+import Business.Profiles.Profile;
 import Business.UserAccounts.UserAccount;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -132,18 +127,17 @@ public class FacultyWorkAreaJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(101, 101, 101)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(75, 75, 75)
-                            .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(632, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,210 +157,73 @@ public class FacultyWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4IdentifyResourceAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4IdentifyResourceAssetsActionPerformed
-        String facultyId = getFacultyId();
-        if (facultyId == null) {
+        FacultyProfile profile = getFacultyProfile();
+        if (profile == null) {
             JOptionPane.showMessageDialog(this, "Faculty session is invalid.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        String courseId = promptRequired("Enter Course ID:");
-        if (courseId == null) {
-            return;
-        }
-        String courseName = promptRequired("Enter Course Name:");
-        if (courseName == null) {
-            return;
-        }
-        String creditsText = promptRequired("Enter Credits (integer):");
-        if (creditsText == null) {
-            return;
-        }
-        int credits;
-        try {
-            credits = Integer.parseInt(creditsText);
-            if (credits <= 0) {
-                throw new NumberFormatException("Credits must be > 0");
-            }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Credits must be a positive integer.", "Validation Error",
-                    JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        business.getCourseDirectory().addOrUpdateCourse(facultyId, courseId, courseName, credits);
-        JOptionPane.showMessageDialog(this, "Course saved for faculty " + facultyId + ".", "Success",
-                JOptionPane.INFORMATION_MESSAGE);
-
+        CardSequencePanel.removeAll();
+        UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.ManageCoursesJPanel panel = 
+            new UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.ManageCoursesJPanel(business, profile, CardSequencePanel);
+        CardSequencePanel.add("ManageCourses", panel);
+        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
     }//GEN-LAST:event_jButton4IdentifyResourceAssetsActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        List<StudentProfile> students = business.getStudentDirectory().getStudentList();
-        if (students == null || students.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No student profiles found.", "Student Profiles",
-                    JOptionPane.INFORMATION_MESSAGE);
+        FacultyProfile profile = getFacultyProfile();
+        if (profile == null) {
+            JOptionPane.showMessageDialog(this, "Faculty session is invalid.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        StringBuilder sb = new StringBuilder("Student Profiles\n\n");
-        for (StudentProfile sp : students) {
-            Person p = sp.getPerson();
-            if (p == null) {
-                continue;
-            }
-            sb.append("ID: ").append(p.getPersonId())
-                    .append(" | Name: ").append(safe(p.getName()))
-                    .append("\nInterests: ").append(safe(sp.getInterests()))
-                    .append("\nHobbies: ").append(safe(sp.getHobbies()))
-                    .append("\nProgress: ").append(safe(sp.getAcademicProgress()))
-                    .append("\n\n");
-        }
-        JOptionPane.showMessageDialog(this, sb.toString(), "Student Profiles", JOptionPane.INFORMATION_MESSAGE);
-
-        String studentId = JOptionPane.showInputDialog(this, "Optional: Enter Student ID to update progress:");
-        if (studentId == null || studentId.trim().isEmpty()) {
-            return;
-        }
-        StudentProfile target = business.getStudentDirectory().findStudent(studentId.trim());
-        if (target == null) {
-            JOptionPane.showMessageDialog(this, "Student not found.", "Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        String newProgress = promptRequired("Enter new academic progress:");
-        if (newProgress == null) {
-            return;
-        }
-        target.setAcademicProgress(newProgress);
-        JOptionPane.showMessageDialog(this, "Student progress updated.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        CardSequencePanel.removeAll();
+        UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.ManageStudentsProfilesJPanel panel = 
+            new UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.ManageStudentsProfilesJPanel(business, profile, CardSequencePanel);
+        CardSequencePanel.add("ManageStudents", panel);
+        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6IdentifyEventsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6IdentifyEventsActionPerformed
         FacultyProfile profile = getFacultyProfile();
-        if (profile == null || profile.getPerson() == null) {
-            JOptionPane.showMessageDialog(this, "Faculty profile not available.", "Error", JOptionPane.ERROR_MESSAGE);
+        if (profile == null) {
+            JOptionPane.showMessageDialog(this, "Faculty session is invalid.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Person p = profile.getPerson();
-        String current = "Name: " + safe(p.getName()) + "\nEmail: " + safe(p.getEmail()) + "\nDepartment: "
-                + safe(p.getDepartment());
-        JOptionPane.showMessageDialog(this, current, "Faculty Profile", JOptionPane.INFORMATION_MESSAGE);
 
-        String newName = JOptionPane.showInputDialog(this, "Enter name:", safe(p.getName()));
-        if (newName == null || newName.trim().isEmpty()) {
-            return;
-        }
-        String newEmail = JOptionPane.showInputDialog(this, "Enter email:", safe(p.getEmail()));
-        if (newEmail == null || newEmail.trim().isEmpty()) {
-            return;
-        }
-        String newDept = JOptionPane.showInputDialog(this, "Enter department:", safe(p.getDepartment()));
-        if (newDept == null || newDept.trim().isEmpty()) {
-            return;
-        }
-        p.setName(newName.trim());
-        p.setEmail(newEmail.trim());
-        p.setDepartment(newDept.trim());
-        if (facultyAccount != null) {
-            facultyAccount.touchLastUpdated();
-        }
-        JOptionPane.showMessageDialog(this, "Faculty profile updated.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        CardSequencePanel.removeAll();
+        UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.MyProfileJPanel panel = 
+            new UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.MyProfileJPanel(business, profile, CardSequencePanel);
+        CardSequencePanel.add("MyProfile", panel);
+        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 }//GEN-LAST:event_jButton6IdentifyEventsActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        String facultyId = getFacultyId();
-        if (facultyId == null) {
-            JOptionPane.showMessageDialog(this,"Faculty session is invalid.","Error",JOptionPane.ERROR_MESSAGE);
-        return;
-}
-
-        StringBuilder report = new StringBuilder("Performance Report\n\nCourses:\n");
-
-
-        ArrayList<CourseInfo> courses =business.getCourseDirectory().getCoursesForFaculty(facultyId);
-
-        if (courses.isEmpty()) {
-        report.append("No courses managed.\n");
+        FacultyProfile profile = getFacultyProfile();
+        if (profile == null) {
+            JOptionPane.showMessageDialog(this, "Faculty session is invalid.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-       else {
-        for (CourseInfo c : courses) {
-        report.append(c.getCourseId())
-              .append(" - ")
-              .append(c.getCourseName())
-              .append(" (")
-              .append(c.getCredits())
-              .append(" credits)\n");
-    }
-}
 
-        report.append("\nStudent Grade Records:\n");
-
-
-        ArrayList<String> performanceLines =business.getEnrollmentDirectory().facultyPerformanceLines(facultyId);
-
-        for (String line : performanceLines) {
-            report.append(line).append("\n");
-    }
-
-        JOptionPane.showMessageDialog(this,report.toString(),"Faculty Performance Report",JOptionPane.INFORMATION_MESSAGE);
-
-
-        String studentId = JOptionPane.showInputDialog(this,"Optional: Enter student ID to record/update grade:");
-        if (studentId == null || studentId.trim().equals("")) {
-        return;
-    }
-
-        String courseId = promptRequired("Enter course ID:");
-        if (courseId == null) {
-         return;
-}
-
-         String gradeText = promptRequired("Enter grade points (0.0 - 4.0):");
-        if (gradeText == null) {
-        return;
-    }
-
-       try {
-        double grade = Double.parseDouble(gradeText);
-
-     boolean updated =business.getEnrollmentDirectory().recordGrade(studentId.trim(),courseId.trim(),grade,facultyId);
-
-    if (!updated) {
-        JOptionPane.showMessageDialog(this,"Unable to record grade. Ensure student is enrolled in that course.","Validation Error",JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    JOptionPane.showMessageDialog(this,"Grade recorded successfully.","Success",JOptionPane.INFORMATION_MESSAGE);
-
-    } catch (NumberFormatException ex) {
-    JOptionPane.showMessageDialog(this,"Invalid grade format.","Validation Error",JOptionPane.WARNING_MESSAGE);}
-
+        CardSequencePanel.removeAll();
+        UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.PerformanceReportsJPanel panel = 
+            new UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02.PerformanceReportsJPanel(business, profile, CardSequencePanel);
+        CardSequencePanel.add("PerformanceReports", panel);
+        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 }//GEN-LAST:event_jButton11ActionPerformed
 
-    private String promptRequired(String message) {
-        String value = JOptionPane.showInputDialog(this, message);
-        if (value == null || value.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Input is required.", "Validation Error", JOptionPane.WARNING_MESSAGE);
-            return null;
-        }
-        return value.trim();
-    }
-
     private FacultyProfile getFacultyProfile() {
+    	
+    	  for (UserAccount ua : business.getUserAccountDirectory().getUserAccountList()) {
+    		  Profile prof = ua.getAssociatedPersonProfile();
+              if (!(prof instanceof FacultyProfile)) continue;
+              return (FacultyProfile)prof;
+    	  }
+    	
         if (facultyAccount != null && facultyAccount.getAssociatedPersonProfile() instanceof FacultyProfile) {
             return (FacultyProfile) facultyAccount.getAssociatedPersonProfile();
         }
         return null;
-    }
-
-    private String getFacultyId() {
-        FacultyProfile profile = getFacultyProfile();
-        if (profile == null || profile.getPerson() == null) {
-            return null;
-        }
-        return profile.getPerson().getPersonId();
-    }
-
-    private String safe(String value) {
-        return value == null ? "" : value;
     }
 
 

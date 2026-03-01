@@ -12,8 +12,8 @@ package UserInterface.WorkAreas.StudentRole;
 
 
 import Business.Academic.Enrollment;
-import Business.Business;
 import Business.Person.Person;
+import Business.Business;
 import Business.Profiles.StudentProfile;
 import Business.UserAccounts.UserAccount;
 import java.util.ArrayList;
