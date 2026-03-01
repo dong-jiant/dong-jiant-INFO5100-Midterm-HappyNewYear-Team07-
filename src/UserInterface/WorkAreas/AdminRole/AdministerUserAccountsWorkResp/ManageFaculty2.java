@@ -5,9 +5,8 @@
 package UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp;
 import Business.Business;
 import Business.Person.Person;
-import Business.Profiles.FacultyProfile;
 import Business.Profiles.Profile;
-import Business.Profiles.StudentProfile;
+import Business.Profiles.FacultyProfile;
 import Business.UserAccounts.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -18,12 +17,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author stelladong
  */
-public class ManageFaculty extends javax.swing.JPanel {
+public class ManageFaculty2 extends javax.swing.JPanel {
     private JPanel userProcessContainer;
 private Business business;
 
 
-public ManageFaculty(JPanel userProcessContainer, Business business) {
+public ManageFaculty2(JPanel userProcessContainer, Business business) {
     initComponents();
     this.userProcessContainer = userProcessContainer;
     this.business = business;
@@ -176,12 +175,12 @@ public ManageFaculty(JPanel userProcessContainer, Business business) {
         return;
     }
 
-    Person p = business.getPersonDirectory().newPerson(fid.trim());
-    p.setName(name.trim());
-    p.setEmail(email.trim());
+    //Ren p = business.getPersonDirectory().newPerson(fid.trim());
+   // p.setName(name.trim());
+   // p.setEmail(email.trim());
 
-    FacultyProfile fp = business.getFacultyDirectory().newFacultyProfile(p);
-    business.getUserAccountDirectory().newUserAccount(fp, username.trim(), password);
+    //FacultyProfile fp = business.getFacultyDirectory().newFacultyProfile(p);
+   // business.getUserAccountDirectory().newUserAccount(fp, username.trim(), password);
 
     JOptionPane.showMessageDialog(this, "Faculty account created successfully.");
     populateTable();
@@ -194,39 +193,7 @@ userProcessContainer.remove(this);
     layout.previous(userProcessContainer);    }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        int selectedRow = tblFaculty.getSelectedRow();
-
-    if (selectedRow < 0) {
-        JOptionPane.showMessageDialog(
-                this,
-                "Please select a faculty account first.",
-                "Warning",
-                JOptionPane.WARNING_MESSAGE
-        );
-        return;
-    }
-
-    DefaultTableModel model = (DefaultTableModel) tblFaculty.getModel();
-    String username = (String) model.getValueAt(selectedRow, 2);
     
-    UserAccount ua = business.getUserAccountDirectory().findUserAccountByUsername(username);
-    
-    if (ua == null) {
-        JOptionPane.showMessageDialog(this, "User account not found.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    AdminFaculty panel = new AdminFaculty(
-            ua,
-            business,
-            userProcessContainer,
-            this
-    );
-
-    userProcessContainer.add("AdminFaculty", panel);
-
-    CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-    layout.next(userProcessContainer);
 
     }//GEN-LAST:event_btnNextActionPerformed
 
@@ -292,12 +259,8 @@ userProcessContainer.remove(this);
 
             Object[] row = new Object[6];
 
-            //Profile prof = ua.getAssociatedPersonProfile();
-            //Person p =null;// (prof == null) ? null : prof.getPerson();
             Profile prof = ua.getAssociatedPersonProfile();
-            if (!(prof instanceof FacultyProfile)) continue;
-
-            Person p = prof.getPerson();
+           Person p =null; //(prof == null) ? null : prof.getPerson();
 
             String facultyId = "";
             String facultyName = "";
@@ -316,7 +279,7 @@ userProcessContainer.remove(this);
             row[4] = ua.getLastAccessTime() != null ? ua.getLastAccessTime() : "N/A";
             row[5] = ua.getLastUpdatedTime() != null ? ua.getLastUpdatedTime() : "N/A";
 
-            model.addRow(row);
+           // model.addRow(row);
         
        }
      }
