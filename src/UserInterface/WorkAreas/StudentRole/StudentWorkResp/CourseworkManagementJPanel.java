@@ -175,7 +175,7 @@ public class CourseworkManagementJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {
         CardLayout cl = (CardLayout) userProcessContainer.getLayout();
-        cl.previous(userProcessContainer);
+        cl.show(userProcessContainer, "student");
     }
 
     private void refreshSubmissionTable() {

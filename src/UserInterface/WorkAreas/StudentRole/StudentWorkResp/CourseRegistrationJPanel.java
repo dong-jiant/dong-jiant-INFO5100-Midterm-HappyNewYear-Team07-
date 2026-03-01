@@ -189,12 +189,12 @@ public class CourseRegistrationJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblCourse.getModel();
         model.setRowCount(0);
 
-        for (CourseInfo c : business.getCourseDirectory().getCoursesForFaculty("")) { // 这里传入空串获取全部课程（或具体facultyId）
-             Object[] row = new Object[3];
-             row[0] = c.getCourseId();
-             row[1] = c.getCourseName();
-             row[2] = c.getCredits();
-             model.addRow(row);
+        for (CourseInfo c : business.getCourseDirectory().getCourseList()) {
+            Object[] row = new Object[3];
+            row[0] = c.getCourseId();
+            row[1] = c.getCourseName();
+            row[2] = c.getCredits();
+            model.addRow(row);
+        }
     }
-}
 }
