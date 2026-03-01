@@ -145,12 +145,7 @@ public class GraduationAuditJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>
 
-    // ---------------------------------------------------------------
-    // Logic
-    // ---------------------------------------------------------------
 
-    /**
-     */
     private void runAudit() {
         if (student == null || student.getPerson() == null) {
             valStatus.setText("Invalid session");
@@ -165,13 +160,11 @@ public class GraduationAuditJPanel extends javax.swing.JPanel {
         valRequired.setText(String.valueOf(REQUIRED_CREDITS));
         valPending.setText(String.valueOf(pending));
 
-        // Update progress bar
         progressBar.setValue(Math.min(completed, REQUIRED_CREDITS));
         progressBar.setString(completed + " / " + REQUIRED_CREDITS + " credits");
 
-        // Update status with colour feedback
         if (pending == 0) {
-            valStatus.setText("✓ Eligible for Graduation");
+            valStatus.setText("Eligible for Graduation");
             valStatus.setForeground(new java.awt.Color(0, 150, 0));
         } else {
             valStatus.setText("In Progress — " + pending + " credits needed");

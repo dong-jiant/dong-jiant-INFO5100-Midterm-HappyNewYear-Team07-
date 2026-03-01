@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
  * @author Yiru Chen
  */
 public class ViewTranscriptJPanel extends javax.swing.JPanel {
@@ -22,13 +21,6 @@ public class ViewTranscriptJPanel extends javax.swing.JPanel {
     private Business business;
     private StudentProfile student;
 
-    /**
-     * Constructor — initialises components and loads transcript data.
-     *
-     * @param container CardLayout parent panel
-     * @param b         shared Business object
-     * @param sp        logged-in StudentProfile
-     */
     public ViewTranscriptJPanel(JPanel container, Business b, StudentProfile sp) {
         initComponents();
         this.userProcessContainer = container;
@@ -48,11 +40,9 @@ public class ViewTranscriptJPanel extends javax.swing.JPanel {
         btnRefresh   = new javax.swing.JButton();
         btnBack      = new javax.swing.JButton();
 
-        // Title
         lblTitle.setFont(new java.awt.Font("Dialog", 1, 18));
         lblTitle.setText("My Transcript");
 
-        // Transcript table — not editable
         tblTranscript.setModel(new javax.swing.table.DefaultTableModel(
             new Object[][] {},
             new String[] { "Course ID", "Course Name", "Credits", "Grade" }
@@ -61,11 +51,9 @@ public class ViewTranscriptJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblTranscript);
 
-        // Summary label (GPA / credit count shown below table)
         lblSummary.setFont(new java.awt.Font("Dialog", 0, 12));
         lblSummary.setText("Total courses: 0  |  Completed credits: 0");
 
-        // Refresh button
         btnRefresh.setBackground(new java.awt.Color(102, 153, 255));
         btnRefresh.setForeground(java.awt.Color.WHITE);
         btnRefresh.setText("Refresh");
@@ -75,7 +63,6 @@ public class ViewTranscriptJPanel extends javax.swing.JPanel {
             }
         });
 
-        // Back button
         btnBack.setText("<< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,14 +102,6 @@ public class ViewTranscriptJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>
 
-    // ---------------------------------------------------------------
-    // Logic
-    // ---------------------------------------------------------------
-
-    /**
-     * Loads all enrollment records for the current student into the table.
-     * Shows grade as numeric value or "In Progress" if not yet graded.
-     */
     private void loadTranscript() {
         DefaultTableModel model = (DefaultTableModel) tblTranscript.getModel();
         model.setRowCount(0);
@@ -160,7 +139,6 @@ public class ViewTranscriptJPanel extends javax.swing.JPanel {
                 + "  |  Completed credits: " + completedCredits);
     }
 
-    /** Navigate back to the Student Work Area. */
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {
         CardLayout cl = (CardLayout) userProcessContainer.getLayout();
         cl.previous(userProcessContainer);

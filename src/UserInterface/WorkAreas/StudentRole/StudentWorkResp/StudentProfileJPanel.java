@@ -4,6 +4,10 @@
  */
 package UserInterface.WorkAreas.StudentRole.StudentWorkResp;
 
+import Business.Business;
+import Business.Profiles.StudentProfile;
+import javax.swing.JPanel;
+
 /**
  *
  * @author mac
@@ -13,7 +17,7 @@ public class StudentProfileJPanel extends javax.swing.JPanel {
     /**
      * Creates new form StudentPorfileJPanel
      */
-    public StudentProfileJPanel() {
+    public StudentProfileJPanel(JPanel CardSequencePanel, Business business, StudentProfile student) {
         initComponents();
     }
 

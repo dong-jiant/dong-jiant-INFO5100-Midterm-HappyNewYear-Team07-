@@ -103,7 +103,8 @@ class ConfigureABusiness {
     
         courseDirectory.addOrUpdateCourse(facultyId,"INFO5100","Application Engineering and Development",4);
         courseDirectory.addOrUpdateCourse(facultyId,"CSYE6200","Object-Oriented Design",4);
-
+        courseDirectory.addOrUpdateCourse(facultyId, "INFO6150", "Web Design", 4);
+        courseDirectory.addOrUpdateCourse(facultyId, "CSYE6220", "Software Design", 4);
 
         enrollmentDirectory.registerStudentForCourse(studentId,"INFO5100","Application Engineering and Development",4);
         enrollmentDirectory.registerStudentForCourse(studentId,"CSYE6200","Object-Oriented Design",4);       
