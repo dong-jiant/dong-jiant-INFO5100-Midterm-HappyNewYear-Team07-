@@ -4,28 +4,39 @@
  */
 package Business.Academic;
 
+import Business.Profiles.StudentProfile;
+import java.util.ArrayList;
 /**
  *
- * @author mac
+ * @author Yiru Chen
  */
 public class Transcript {
-    StudentProfile student;
-    ArrayList<Enrollment> enrollments;
+    private StudentProfile student;
+    private ArrayList<Enrollment> enrollments;
 
     public Transcript(StudentProfile sp) {
         this.student = sp;
         this.enrollments = new ArrayList<>();
     }
 
-    public void newEnrollment(Course c) {
-        Enrollment e = new Enrollment(c);
-        enrollments.add(e);
+    public void addEnrollment(Enrollment e) {
+        if (e != null) {
+            enrollments.add(e);
+        }
     }
-    
+
+
+    public ArrayList<Enrollment> getEnrollments() {
+        return enrollments;
+    }
+
+
     public int getTotalCredits() {
         int sum = 0;
         for (Enrollment e : enrollments) {
-            sum += e.getCourse().getCredits();
+            if (e.getGradePoint() != null && e.getGradePoint() >= 1.0) {
+                sum += e.getCredits();
+            }
         }
         return sum;
     }

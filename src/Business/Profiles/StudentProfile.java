@@ -6,20 +6,19 @@
 package Business.Profiles;
 
 import Business.Person.Person;
-import Business.Academic.Enrollment;
+
 
 /**
  *
- * @author kal bugrara
+ * @author Yiru Chen
  */
+
 public class StudentProfile extends Profile {
 
     Person person;
     private String hobbies;
     private String interests;
     private String academicProgress;
-    Transcript transcript;
-    EmploymentHistroy employmenthistory;
 
     public StudentProfile(Person p) {
         super(p);
@@ -27,9 +26,6 @@ public class StudentProfile extends Profile {
         this.hobbies = "";
         this.interests = "";
         this.academicProgress = "On Track";
-
-        transcript = new Transcript(this);
-        employmenthistory = new EmploymentHistroy();
     }
 
     @Override
@@ -37,6 +33,7 @@ public class StudentProfile extends Profile {
         return "Student";
     }
 
+    @Override
     public boolean isMatch(String id) {
         return person.getPersonId().equals(id);
     }
@@ -64,5 +61,4 @@ public class StudentProfile extends Profile {
     public void setAcademicProgress(String academicProgress) {
         this.academicProgress = academicProgress;
     }
-
 }

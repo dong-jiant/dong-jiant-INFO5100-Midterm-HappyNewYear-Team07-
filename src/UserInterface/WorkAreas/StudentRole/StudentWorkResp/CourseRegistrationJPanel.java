@@ -4,19 +4,19 @@
  */
 package UserInterface.WorkAreas.StudentRole.StudentWorkResp;
 
-import Business.Academic.CourseInfo;
-import Business.Academic.Enrollment;
 import Business.Business;
 import Business.Profiles.StudentProfile;
+import javax.swing.JPanel;
 import java.awt.CardLayout;
+import Business.Academic.CourseInfo;
+import Business.Academic.Enrollment;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author mac
+ * @author Yiru Chen
  */
 public class CourseRegistrationJPanel extends javax.swing.JPanel {
     
@@ -26,9 +26,9 @@ public class CourseRegistrationJPanel extends javax.swing.JPanel {
     /**
      * Creates new form CourseRegistrationJPanel
      */
-    public CourseRegistrationJPanel() {
+    
+    public CourseRegistrationJPanel(JPanel container, Business b, StudentProfile sp) {
         initComponents();
-        
         this.userProcessContainer = container;
         this.business = b;
         this.student = sp;
@@ -198,4 +198,4 @@ public class CourseRegistrationJPanel extends javax.swing.JPanel {
              model.addRow(row);
     }
 }
-
+}
