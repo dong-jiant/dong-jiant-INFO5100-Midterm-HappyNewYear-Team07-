@@ -10,7 +10,7 @@ import Business.UserAccounts.UserAccount;
 import javax.swing.JPanel;
 
 /**
- *h
+ *
  * @author Jianting Dong
  */
 
@@ -148,8 +148,7 @@ public class AdminUserAccount extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-String newPw = txtNewPassword.getText();
+    String newPw = txtNewPassword.getText();
 
     if (newPw == null || newPw.trim().equals("")) {
         javax.swing.JOptionPane.showMessageDialog(this,"Please enter a new password.","Warning",javax.swing.JOptionPane.WARNING_MESSAGE
@@ -176,8 +175,7 @@ String newPw = txtNewPassword.getText();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
-        if (managePanel != null) {
+    if (managePanel != null) {
         managePanel.refreshTable();
     }
 

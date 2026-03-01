@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 /**
  *
- * @author Jianting Dong
+ * @author Jianting Dong    
  */
 public class AdminFaculty extends javax.swing.JPanel {
   private JPanel userProcessContainer;
@@ -38,9 +38,9 @@ public AdminFaculty(UserAccount ua, Business b, JPanel upc, ManageFaculty parent
     
 
         
-txtFacultyID.setText(userAccount.getPersonId());
-txtUserName.setText(userAccount.getUserLoginName());
-txtRole.setText(userAccount.getRole());
+    txtFacultyID.setText(userAccount.getPersonId());
+    txtUserName.setText(userAccount.getUserLoginName());
+    txtRole.setText(userAccount.getRole());
     }
     /**
      * Creates new form AdminFaculty
@@ -220,7 +220,7 @@ txtRole.setText(userAccount.getRole());
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
- if (parentPanel != null) {
+    if (parentPanel != null) {
         parentPanel.populateTable();
     }
 
@@ -231,7 +231,7 @@ txtRole.setText(userAccount.getRole());
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-   int confirm = JOptionPane.showConfirmDialog(
+    int confirm = JOptionPane.showConfirmDialog(
             this,
             "Are you sure you want to delete this faculty account?",
             "Confirm Delete",

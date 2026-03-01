@@ -26,10 +26,7 @@ private UserAccount userAccount;
         this.workArea = workArea;
     this.userAccount = userAccount;
 
-    JOptionPane.showMessageDialog(this,
-            "Viewing Admin Profile.",
-            "Admin Profile",
-            JOptionPane.INFORMATION_MESSAGE);
+    JOptionPane.showMessageDialog(this,"Viewing Admin Profile.","Admin Profile",JOptionPane.INFORMATION_MESSAGE);
 
     populateFields();
     setViewMode();
@@ -159,7 +156,7 @@ private UserAccount userAccount;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
- workArea.remove(this);
+     workArea.remove(this);
     java.awt.CardLayout layout = (java.awt.CardLayout) workArea.getLayout();
     layout.previous(workArea);    }//GEN-LAST:event_btnBackActionPerformed
 
@@ -182,7 +179,7 @@ private UserAccount userAccount;
     // End of variables declaration//GEN-END:variables
 
     private void populateFields() {
- Profile profile = userAccount.getAssociatedPersonProfile();
+    Profile profile = userAccount.getAssociatedPersonProfile();
     Person p = profile.getPerson();
 
     txtName.setText(p.getName());
@@ -191,22 +188,23 @@ private UserAccount userAccount;
     txtNUID.setText(p.getPersonId());
 
     java.text.SimpleDateFormat sdf =
-            new java.text.SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+        new java.text.SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 
- if (userAccount.getLastAccessTime() != null) {
+    if (userAccount.getLastAccessTime() != null) {
     txtLastAccess.setText(sdf.format(userAccount.getLastAccessTime()));
-}
-
-if (userAccount.getLastUpdatedTime() != null) {
-    txtLastUpdated.setText(sdf.format(userAccount.getLastUpdatedTime()));
-}
     }
 
+    if (userAccount.getLastUpdatedTime() != null) {
+    txtLastUpdated.setText(sdf.format(userAccount.getLastUpdatedTime()));
+    }
+}
+
     private void setViewMode() {
-txtName.setEnabled(false);
+    txtName.setEnabled(false);
     txtEmail.setEnabled(false);
     txtDepartment.setEnabled(false);
     txtNUID.setEnabled(false);
     txtLastAccess.setEnabled(false);
-    txtLastUpdated.setEnabled(false);    }
+    txtLastUpdated.setEnabled(false);  
+    }
 }

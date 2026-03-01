@@ -24,17 +24,16 @@ public class AdminStudents extends javax.swing.JPanel {
     /**
      * Creates new form AdminStudents
      */
-    public AdminStudents(StudentProfile sp, UserAccount ua, Business business,
-                         JPanel userProcessContainer, ManageStudents mp) {
-        initComponents();
-        this.userProcessContainer = userProcessContainer;
-        this.business = business;
-        this.managePanel = mp;
-        this.studentProfile = sp;
-        this.userAccount = ua;
+    public AdminStudents(StudentProfile sp, UserAccount ua, Business business,JPanel userProcessContainer, ManageStudents mp) {
+    initComponents();
+    this.userProcessContainer = userProcessContainer;
+    this.business = business;
+    this.managePanel = mp;
+    this.studentProfile = sp;
+    this.userAccount = ua;
 
-        populateFields();
-        setViewMode(); 
+    populateFields();
+    setViewMode(); 
     }
 
     /**
@@ -226,26 +225,21 @@ public class AdminStudents extends javax.swing.JPanel {
     }//GEN-LAST:event_txtLastUpdatedActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-           int confirm = JOptionPane.showConfirmDialog(this,
-            "Are you sure you want to delete this student account?",
-            "Confirm Delete",
-            JOptionPane.YES_NO_OPTION);
+    int confirm = JOptionPane.showConfirmDialog(this,"Are you sure you want to delete this student account?","Confirm Delete",JOptionPane.YES_NO_OPTION);
 
     if (confirm != JOptionPane.YES_OPTION) {
         return;
     }
 
     if (userAccount != null) {
-        // 1) remove user account
         business.getUserAccountDirectory().removeUserAccount(userAccount);
 
-        // 2) remove student profile from StudentDirectory (if you maintain it)
-        if (userAccount.getAssociatedPersonProfile() instanceof StudentProfile) {
+    if (userAccount.getAssociatedPersonProfile() instanceof StudentProfile) {
             StudentProfile sp = (StudentProfile) userAccount.getAssociatedPersonProfile();
             business.getStudentDirectory().removeStudentProfile(sp); 
         } else {
             StudentProfile sp = business.getStudentDirectory().findStudent(userAccount.getPersonId());
-            if (sp != null) {
+    if (sp != null) {
                 business.getStudentDirectory().removeStudentProfile(sp);
             }
         }
@@ -265,13 +259,9 @@ String name = txtName.getText().trim();
     String newPassword = txtNewPassword.getText().trim();
 
     if (name.isEmpty() || email.isEmpty() || dept.isEmpty()) {
-        JOptionPane.showMessageDialog(this,
-                "Please fill Name, Email and Department.",
-                "Warning",
-                JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this,"Please fill Name, Email and Department.","Warning",JOptionPane.WARNING_MESSAGE);
         return;
     }
-
 
     Person p = null;
     if (studentProfile != null) {
@@ -312,16 +302,16 @@ String name = txtName.getText().trim();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-  userProcessContainer.remove(this);
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
+    userProcessContainer.remove(this);
+    CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+    layout.previous(userProcessContainer);
 
-        if (managePanel != null) {
+    if (managePanel != null) {
             managePanel.populateTable();
         }    }//GEN-LAST:event_btnBackActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_txtNameActionPerformed
 
 
@@ -390,7 +380,7 @@ String name = txtName.getText().trim();
         txtNewPassword.setText("");    }
 
     private void setViewMode() {
-txtRole.setEnabled(false);
+        txtRole.setEnabled(false);
         txtNUID.setEnabled(false);
         txtLastActivity.setEnabled(false);
         txtLastUpdated.setEnabled(false);

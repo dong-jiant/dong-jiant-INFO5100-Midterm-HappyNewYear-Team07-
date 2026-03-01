@@ -197,11 +197,7 @@ userProcessContainer.remove(this);
         int selectedRow = tblFaculty.getSelectedRow();
 
     if (selectedRow < 0) {
-        JOptionPane.showMessageDialog(
-                this,
-                "Please select a faculty account first.",
-                "Warning",
-                JOptionPane.WARNING_MESSAGE
+    JOptionPane.showMessageDialog(this,"Please select a faculty account first.","Warning",JOptionPane.WARNING_MESSAGE
         );
         return;
     }
@@ -212,38 +208,26 @@ userProcessContainer.remove(this);
     UserAccount ua = business.getUserAccountDirectory().findUserAccountByUsername(username);
     
     if (ua == null) {
-        JOptionPane.showMessageDialog(this, "User account not found.", "Error", JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(this, "User account not found.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    AdminFaculty panel = new AdminFaculty(
-            ua,
-            business,
-            userProcessContainer,
-            this
-    );
+    AdminFaculty panel = new AdminFaculty(ua,business,userProcessContainer,this);
 
     userProcessContainer.add("AdminFaculty", panel);
-
     CardLayout layout = (CardLayout) userProcessContainer.getLayout();
     layout.next(userProcessContainer);
 
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
- int selectedRowIndex = tblFaculty.getSelectedRow();
+     int selectedRowIndex = tblFaculty.getSelectedRow();
     if (selectedRowIndex < 0) {
-        JOptionPane.showMessageDialog(this,
-                "Please select a faculty to delete.",
-                "Warning",
-                JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this,"Please select a faculty to delete.","Warning",JOptionPane.WARNING_MESSAGE);
         return;
     }
 
-    int confirm = JOptionPane.showConfirmDialog(this,
-            "Are you sure you want to delete this faculty account?",
-            "Confirm Delete",
-            JOptionPane.YES_NO_OPTION);
+    int confirm = JOptionPane.showConfirmDialog(this,"Are you sure you want to delete this faculty account?","Confirm Delete",JOptionPane.YES_NO_OPTION);
 
     if (confirm != JOptionPane.YES_OPTION) {
         return;
@@ -261,10 +245,7 @@ userProcessContainer.remove(this);
 
     business.getUserAccountDirectory().removeUserAccount(ua);
 
-    JOptionPane.showMessageDialog(this,
-            "Faculty account deleted successfully.",
-            "Deleted",
-            JOptionPane.INFORMATION_MESSAGE);
+    JOptionPane.showMessageDialog(this,"Faculty account deleted successfully.","Deleted",JOptionPane.INFORMATION_MESSAGE);
 
     populateTable();
 
