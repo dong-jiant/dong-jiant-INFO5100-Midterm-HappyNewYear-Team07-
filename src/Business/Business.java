@@ -5,15 +5,15 @@
  */
 package Business;
 
-import Business.Person.PersonDirectory;
 import Business.Profiles.EmployeeDirectory;
 import Business.Profiles.FacultyDirectory;
 import Business.Profiles.StudentDirectory;
 import Business.UserAccounts.UserAccountDirectory;
 
-// 新增 import
+
 import Business.Academic.CourseDirectory;
 import Business.Academic.EnrollmentDirectory;
+import Business.Person.PersonDirectory;
 
 /**
  *
@@ -37,19 +37,19 @@ public class Business {
     public Business(String n) {
         name = n;
 
-        // 原有初始化
+        
         persondirectory = new PersonDirectory();
         employeedirectory = new EmployeeDirectory(this);
         useraccountdirectory = new UserAccountDirectory();
         studentdirectory = new StudentDirectory();
         facultydirectory = new FacultyDirectory(this);
 
-        // 新增初始化
+        
         courseDirectory = new CourseDirectory();
         enrollmentDirectory = new EnrollmentDirectory();
     }
 
-    // ===== 原有 Getter =====
+    
     public PersonDirectory getPersonDirectory() {
         return persondirectory;
     }

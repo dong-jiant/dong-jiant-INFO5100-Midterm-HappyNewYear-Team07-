@@ -12,6 +12,9 @@ import Business.Person.Person;
 public class FacultyProfile extends Profile {
 
     Person person;
+    private String department;
+    private String email;
+    private String phone;
 
     public FacultyProfile(Person p) {
         super(p);
@@ -29,5 +32,29 @@ public class FacultyProfile extends Profile {
 
     public Person getPerson() {
         return person;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

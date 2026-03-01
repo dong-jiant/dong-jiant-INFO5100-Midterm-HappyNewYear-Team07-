@@ -151,7 +151,7 @@ public class AdminUserAccount extends javax.swing.JPanel {
         // TODO add your handling code here:
 String newPw = txtNewPassword.getText();
 
-    if (newPw == null || newPw.isBlank()) {
+    if (newPw == null || newPw.trim().equals("")) {
         javax.swing.JOptionPane.showMessageDialog(this,"Please enter a new password.","Warning",javax.swing.JOptionPane.WARNING_MESSAGE
         );
         return;

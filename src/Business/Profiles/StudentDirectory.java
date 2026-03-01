@@ -5,9 +5,9 @@
  */
 package Business.Profiles;
 
-import Business.Person.Person;
-
 import java.util.ArrayList;
+
+import Business.Person.Person;
 
 /**
  *
