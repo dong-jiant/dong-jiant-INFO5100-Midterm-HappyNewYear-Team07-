@@ -6,6 +6,7 @@
 package Business.Profiles;
 
 import Business.Person.Person;
+import Business.Academic.Enrollment;
 
 /**
  *
@@ -17,8 +18,8 @@ public class StudentProfile extends Profile {
     private String hobbies;
     private String interests;
     private String academicProgress;
-//    Transcript transcript;
-    //   EmploymentHistroy employmenthistory;
+    Transcript transcript;
+    EmploymentHistroy employmenthistory;
 
     public StudentProfile(Person p) {
         super(p);
@@ -27,8 +28,8 @@ public class StudentProfile extends Profile {
         this.interests = "";
         this.academicProgress = "On Track";
 
-//        transcript = new Transcript(this);
-//        employmenthistory = new EmploymentHistroy();
+        transcript = new Transcript(this);
+        employmenthistory = new EmploymentHistroy();
     }
 
     @Override

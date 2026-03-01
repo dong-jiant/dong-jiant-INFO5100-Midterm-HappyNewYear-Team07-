@@ -8,12 +8,12 @@ package UserInterface.WorkAreas.StudentRole.StudentWorkResp;
  *
  * @author mac
  */
-public class CourseworkManagementJPanel extends javax.swing.JPanel {
+public class ManageProfileJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form CourseworkManagementJPanel
+     * Creates new form ManageProfileJPanel
      */
-    public CourseworkManagementJPanel() {
+    public ManageProfileJPanel() {
         initComponents();
     }
 
@@ -30,11 +30,11 @@ public class CourseworkManagementJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 496, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 528, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

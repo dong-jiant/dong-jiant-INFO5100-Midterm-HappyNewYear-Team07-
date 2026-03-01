@@ -4,17 +4,36 @@
  */
 package UserInterface.WorkAreas.StudentRole.StudentWorkResp;
 
+import Business.Academic.CourseInfo;
+import Business.Academic.Enrollment;
+import Business.Business;
+import Business.Profiles.StudentProfile;
+import java.awt.CardLayout;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author mac
  */
 public class CourseRegistrationJPanel extends javax.swing.JPanel {
-
+    
+    private javax.swing.JPanel userProcessContainer;
+    private Business business;
+    private StudentProfile student;
     /**
      * Creates new form CourseRegistrationJPanel
      */
     public CourseRegistrationJPanel() {
         initComponents();
+        
+        this.userProcessContainer = container;
+        this.business = b;
+        this.student = sp;
+        
+        populateCourseTable();
     }
 
     /**
@@ -26,19 +45,157 @@ public class CourseRegistrationJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblCourse = new javax.swing.JTable();
+        btnEnroll = new javax.swing.JButton();
+        btnDrop = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+
+        jLabel1.setText("Course Registration");
+
+        tblCourse.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Course ID", "Course Name", "Credits"
+            }
+        ));
+        jScrollPane1.setViewportView(tblCourse);
+        if (tblCourse.getColumnModel().getColumnCount() > 0) {
+            tblCourse.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        btnEnroll.setText("Enroll");
+        btnEnroll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnrollActionPerformed(evt);
+            }
+        });
+
+        btnDrop.setText("Drop");
+        btnDrop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDropActionPerformed(evt);
+            }
+        });
+
+        btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(btnEnroll)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDrop)
+                .addGap(175, 175, 175))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(btnBack)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEnroll)
+                    .addComponent(btnDrop))
+                .addContainerGap(216, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnEnrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnrollActionPerformed
+        // TODO add your handling code here:                                   
+        int selectedRowIndex = tblCourse.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a course to enroll.");
+            return;
+        }
+
+        String courseId = (String) tblCourse.getValueAt(selectedRowIndex, 0);
+        String courseName = (String) tblCourse.getValueAt(selectedRowIndex, 1);
+        int credits = (int) tblCourse.getValueAt(selectedRowIndex, 2);
+        String studentId = student.getPerson().getPersonId();
+
+        business.getEnrollmentDirectory().registerStudentForCourse(studentId, courseId, courseName, credits);
+        
+        JOptionPane.showMessageDialog(this, "Successfully enrolled in: " + courseName);
+   
+    }//GEN-LAST:event_btnEnrollActionPerformed
+
+    private void btnDropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDropActionPerformed
+        // TODO add your handling code here:                                     
+        int selectedRowIndex = tblCourse.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a course from the table to drop.");
+            return;
+        }
+
+        String courseId = (String) tblCourse.getValueAt(selectedRowIndex, 0);
+        String studentId = student.getPerson().getPersonId();
+
+        boolean success = business.getEnrollmentDirectory().dropStudentCourse(studentId, courseId);
+        
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Course dropped successfully.");
+        } else {
+            JOptionPane.showMessageDialog(this, "You are not enrolled in this course.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDropActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDrop;
+    private javax.swing.JButton btnEnroll;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblCourse;
     // End of variables declaration//GEN-END:variables
+
+    private void populateCourseTable() {
+        DefaultTableModel model = (DefaultTableModel) tblCourse.getModel();
+        model.setRowCount(0);
+
+        for (CourseInfo c : business.getCourseDirectory().getCoursesForFaculty("")) { // 这里传入空串获取全部课程（或具体facultyId）
+             Object[] row = new Object[3];
+             row[0] = c.getCourseId();
+             row[1] = c.getCourseName();
+             row[2] = c.getCredits();
+             model.addRow(row);
+    }
 }
+

@@ -67,4 +67,9 @@ public class CourseDirectory {
     private boolean isBlank(String value) {
         return value == null || value.trim().isEmpty();
     }
+    
+    public ArrayList<CourseInfo> getCourseList() {
+        return courseList;
+    }
+    
 }
