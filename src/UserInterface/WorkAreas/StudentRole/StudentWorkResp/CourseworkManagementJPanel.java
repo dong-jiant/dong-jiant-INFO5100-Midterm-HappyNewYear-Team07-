@@ -43,6 +43,8 @@ public class CourseworkManagementJPanel extends javax.swing.JPanel {
         tblSubmissions = new javax.swing.JTable();
         btnBack       = new javax.swing.JButton();
         lblHistory    = new javax.swing.JLabel();
+        lblProgress = new javax.swing.JLabel();
+        lblProgress.setText("Enrolled Courses: 0  |  Assignments Submitted: 0");
 
         // Title
         lblTitle.setFont(new java.awt.Font("Dialog", 1, 18));
@@ -104,7 +106,8 @@ public class CourseworkManagementJPanel extends javax.swing.JPanel {
                         .addComponent(txtAssignment, 200, 200, 200))
                     .addComponent(btnSubmit)
                     .addComponent(lblHistory)
-                    .addComponent(jScrollPane1, 450, 450, 450))
+                    .addComponent(jScrollPane1, 450, 450, 450)
+                    .addComponent(lblProgress))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -128,6 +131,8 @@ public class CourseworkManagementJPanel extends javax.swing.JPanel {
                 .addComponent(lblHistory)
                 .addGap(8)
                 .addComponent(jScrollPane1, 160, 160, 160)
+                .addGap(8)
+                .addComponent(lblProgress)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
     }// </editor-fold>
@@ -195,6 +200,13 @@ public class CourseworkManagementJPanel extends javax.swing.JPanel {
                 model.addRow(new Object[]{ entry, "" });
             }
         }
+        
+        int enrolledCount = business.getEnrollmentDirectory()
+                .getEnrollmentsForStudent(studentId).size();
+        int submittedCount = business.getEnrollmentDirectory()
+                .getSubmittedAssignments(studentId).size();
+        lblProgress.setText("Enrolled Courses: " + enrolledCount
+                + "  |  Assignments Submitted: " + submittedCount);
     }
 
     // Variables declaration
@@ -208,4 +220,5 @@ public class CourseworkManagementJPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblSubmissions;
     private javax.swing.JTextField txtAssignment;
     private javax.swing.JTextField txtCourseId;
+    private javax.swing.JLabel lblProgress;
 }
