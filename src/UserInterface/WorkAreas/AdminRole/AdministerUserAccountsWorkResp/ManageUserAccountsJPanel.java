@@ -81,6 +81,7 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUserAccounts = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 153, 153));
         setLayout(null);
@@ -133,6 +134,15 @@ public class ManageUserAccountsJPanel extends javax.swing.JPanel {
 
         add(jScrollPane1);
         jScrollPane1.setBounds(30, 110, 550, 130);
+
+        jButton1.setText("Delete");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        add(jButton1);
+        jButton1.setBounds(240, 300, 72, 23);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
@@ -173,16 +183,36 @@ CardSequencePanel.remove(this);
         if (selecteduseraccount == null) {
             return;
         
-        
+        }
             
     }//GEN-LAST:event_tblUserAccountsMousePressed
-    
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+ int selectedRow = tblUserAccounts.getSelectedRow();
+
+    if (selectedRow < 0) {
+        JOptionPane.showMessageDialog(this, "Please select an account to delete.");
+        return;
     }
+
+    UserAccount ua = (UserAccount) tblUserAccounts.getValueAt(selectedRow, 0);
+
+    business.getUserAccountDirectory().removeUserAccount(ua);
+
+    JOptionPane.showMessageDialog(this, "User account deleted successfully.");
+
+    refreshTable();    }//GEN-LAST:event_jButton1ActionPerformed
+    
+        
+        
+    
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
     private javax.swing.JButton Next;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
