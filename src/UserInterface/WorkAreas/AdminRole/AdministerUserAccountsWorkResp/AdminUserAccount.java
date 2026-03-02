@@ -7,6 +7,7 @@ package UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp;
 
 import Business.Business;
 import Business.UserAccounts.UserAccount;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -172,7 +173,9 @@ String newPw = txtNewPassword.getText();
     if (managePanel != null) {
         managePanel.refreshTable();
     }
-
+ CardSequencePanel.remove(this);
+    CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+    layout.previous(CardSequencePanel);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
