@@ -96,6 +96,12 @@ public AdminFaculty(UserAccount ua, Business b, JPanel upc, ManageFaculty parent
 
         lblLastActivity.setText("Last Activity");
 
+        txtLastActivity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLastActivityActionPerformed(evt);
+            }
+        });
+
         lblLastUpdated.setText("Last Updated");
 
         txtLastUpdated.addActionListener(new java.awt.event.ActionListener() {
@@ -322,6 +328,10 @@ public AdminFaculty(UserAccount ua, Business b, JPanel upc, ManageFaculty parent
     CardLayout layout = (CardLayout) userProcessContainer.getLayout();
     layout.previous(userProcessContainer);
         }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void txtLastActivityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLastActivityActionPerformed
+
+    }//GEN-LAST:event_txtLastActivityActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

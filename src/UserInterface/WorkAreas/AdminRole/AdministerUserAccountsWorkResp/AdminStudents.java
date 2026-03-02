@@ -295,8 +295,9 @@ String name = txtName.getText().trim();
 
     JOptionPane.showMessageDialog(this, "Student account updated successfully.");
 
-
-
+    userProcessContainer.remove(this);
+    CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+    layout.previous(userProcessContainer);
 
 
     }//GEN-LAST:event_btnUpdateActionPerformed

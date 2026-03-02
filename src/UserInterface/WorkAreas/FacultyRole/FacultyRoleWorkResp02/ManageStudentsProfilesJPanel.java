@@ -11,6 +11,7 @@ import Business.Profiles.StudentDirectory;
 import Business.Academic.Enrollment;
 import Business.Academic.EnrollmentDirectory;
 import Business.Person.Person;
+import java.awt.CardLayout;
 
 import java.util.ArrayList;
 import javax.swing.JPanel;
@@ -138,8 +139,12 @@ public class ManageStudentsProfilesJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
- java.awt.CardLayout layout = (java.awt.CardLayout) CardSequencePanel.getLayout();
-    CardSequencePanel.remove(this); 
+if (CardSequencePanel == null) {
+        return;  
+    }
+
+    CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+    CardSequencePanel.remove(this);              
     layout.previous(CardSequencePanel); 
     }//GEN-LAST:event_jButton1ActionPerformed
 

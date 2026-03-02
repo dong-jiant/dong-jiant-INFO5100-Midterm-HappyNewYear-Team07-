@@ -12,6 +12,7 @@ import Business.Academic.Enrollment;
 import Business.Academic.EnrollmentDirectory;
 import Business.Profiles.StudentProfile;
 import Business.Profiles.StudentDirectory;
+import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -141,8 +142,12 @@ public class PerformanceReportsJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-     java.awt.CardLayout layout = (java.awt.CardLayout) CardSequencePanel.getLayout();
-    CardSequencePanel.remove(this);    
+ if (CardSequencePanel == null) {
+        return;  
+    }
+
+    CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+    CardSequencePanel.remove(this);              
     layout.previous(CardSequencePanel); 
     }//GEN-LAST:event_jButton3ActionPerformed
 

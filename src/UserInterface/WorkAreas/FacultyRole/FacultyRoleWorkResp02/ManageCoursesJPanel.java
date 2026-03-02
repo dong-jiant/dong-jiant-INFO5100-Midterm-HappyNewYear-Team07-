@@ -240,8 +240,12 @@ public class ManageCoursesJPanel extends javax.swing.JPanel {
     }
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
- java.awt.CardLayout layout = (java.awt.CardLayout) CardSequencePanel.getLayout();
-    CardSequencePanel.remove(this); 
+ if (CardSequencePanel == null) {
+        return;  
+    }
+
+    CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+    CardSequencePanel.remove(this);              
     layout.previous(CardSequencePanel); 
     }//GEN-LAST:event_btnbackActionPerformed
 

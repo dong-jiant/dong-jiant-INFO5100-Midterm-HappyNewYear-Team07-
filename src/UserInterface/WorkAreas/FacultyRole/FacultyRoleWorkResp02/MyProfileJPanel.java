@@ -6,6 +6,7 @@ package UserInterface.WorkAreas.FacultyRole.FacultyRoleWorkResp02;
 
 import Business.Business;
 import Business.Profiles.FacultyProfile;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 
@@ -167,8 +168,12 @@ public class MyProfileJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnupdateActionPerformed
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
- java.awt.CardLayout layout = (java.awt.CardLayout) CardSequencePanel.getLayout();
-    CardSequencePanel.remove(this); 
+if (CardSequencePanel == null) {
+        return;  
+    }
+
+    CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+    CardSequencePanel.remove(this);              
     layout.previous(CardSequencePanel); 
     }//GEN-LAST:event_btnbackActionPerformed
 

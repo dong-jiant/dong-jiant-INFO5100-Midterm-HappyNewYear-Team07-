@@ -7,6 +7,7 @@ package UserInterface.WorkAreas.AdminRole.AdministerUserAccountsWorkResp;
 
 import Business.Business;
 import Business.UserAccounts.UserAccount;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -170,6 +171,9 @@ public class AdminUserAccount extends javax.swing.JPanel {
 
     if (managePanel != null) {
         managePanel.refreshTable();
+        CardSequencePanel.remove(this);
+        CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+        layout.previous(CardSequencePanel);
     }
 
     }//GEN-LAST:event_btnUpdateActionPerformed
