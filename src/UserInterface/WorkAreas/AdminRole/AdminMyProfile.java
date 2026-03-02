@@ -72,6 +72,12 @@ private UserAccount userAccount;
 
         lblNUID.setText("NUID");
 
+        txtNUID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNUIDActionPerformed(evt);
+            }
+        });
+
         lblLastAccess.setText("Last Access");
 
         lblLastUpdated.setText("Last Updated");
@@ -159,6 +165,10 @@ private UserAccount userAccount;
      workArea.remove(this);
     java.awt.CardLayout layout = (java.awt.CardLayout) workArea.getLayout();
     layout.previous(workArea);    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void txtNUIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNUIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNUIDActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
