@@ -173,7 +173,7 @@ String newPw = txtNewPassword.getText();
     if (managePanel != null) {
         managePanel.refreshTable();
     }
- CardSequencePanel.remove(this);
+    CardSequencePanel.remove(this);
     CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
     layout.previous(CardSequencePanel);
     }//GEN-LAST:event_btnUpdateActionPerformed
