@@ -175,7 +175,9 @@ public class AdminUserAccount extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
         layout.previous(CardSequencePanel);
     }
-
+    CardSequencePanel.remove(this);
+    CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+    layout.previous(CardSequencePanel);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
